@@ -1,4 +1,4 @@
-﻿export const exercises = [
+export const exercises = [
   {
     id: 'exercise-personal-intro',
     courseId: 'html',
@@ -258,9 +258,424 @@
   </footer>
 </article>`,
     explanation: 'Semantic elements like <article>, <header>, <section>, and <footer> allow search engines and feed readers (RSS) to syndicate content accurately.'
+  },
+  {
+    id: 'exercise-flexbox-card',
+    courseId: 'css',
+    moduleId: 'css-module-3',
+    title: 'Flexbox Centering & Alignment',
+    task: 'Use Flexbox properties to center a content card both vertically and horizontally inside a container, and align card items.',
+    difficulty: 'Beginner',
+    starterCode: `<div class="container">
+  <div class="card">
+    <h2>Flexbox Mastery</h2>
+    <p>Centered both horizontally and vertically.</p>
+    <button class="btn">Explore Track</button>
+  </div>
+</div>`,
+    starterCss: `/* 1. Turn .container into a flex container with 100vh height and center its card */
+.container {
+  min-height: 250px;
+  background-color: #f1f5f9;
+  /* Add display, justify-content, and align-items below */
+}
+
+/* 2. Turn .card into a flex column with gap */
+.card {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+  /* Add display, flex-direction, and gap below */
+}
+
+.btn {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}`,
+    solutionCss: `.container {
+  min-height: 250px;
+  background-color: #f1f5f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.btn {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}`,
+    requirements: [
+      {
+        id: 'req-html-card',
+        text: 'Contains .container with nested .card',
+        tag: 'div',
+        minCount: 2
+      }
+    ],
+    cssRequirements: [
+      {
+        id: 'req-css-container-flex',
+        text: '.container must have display: flex',
+        selector: '.container',
+        declarations: [{ property: 'display', expectedValue: 'flex' }]
+      },
+      {
+        id: 'req-css-container-justify',
+        text: '.container must have justify-content: center',
+        selector: '.container',
+        declarations: [{ property: 'justify-content', expectedValue: 'center' }]
+      },
+      {
+        id: 'req-css-container-align',
+        text: '.container must have align-items: center',
+        selector: '.container',
+        declarations: [{ property: 'align-items', expectedValue: 'center' }]
+      },
+      {
+        id: 'req-css-card-direction',
+        text: '.card must have display: flex and flex-direction: column',
+        selector: '.card',
+        declarations: [
+          { property: 'display', expectedValue: 'flex' },
+          { property: 'flex-direction', expectedValue: 'column' }
+        ]
+      }
+    ],
+    explanation: 'Setting display: flex with justify-content: center and align-items: center perfectly centers children along both the main and cross axes.'
+  },
+  {
+    id: 'exercise-css-grid-gallery',
+    courseId: 'css',
+    moduleId: 'css-module-4',
+    title: 'Responsive Grid Layout',
+    task: 'Construct a responsive multi-column layout using CSS Grid with repeat, minmax, and gap properties.',
+    difficulty: 'Intermediate',
+    starterCode: `<div class="grid-gallery">
+  <div class="gallery-item">Item 1</div>
+  <div class="gallery-item">Item 2</div>
+  <div class="gallery-item">Item 3</div>
+  <div class="gallery-item">Item 4</div>
+</div>`,
+    starterCss: `.grid-gallery {
+  /* Set display to grid */
+  /* Use grid-template-columns with repeat and minmax (or auto-fit) */
+  /* Add gap */
+  padding: 16px;
+}
+
+.gallery-item {
+  background: #3b82f6;
+  color: white;
+  padding: 30px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: bold;
+}`,
+    solutionCss: `.grid-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  padding: 16px;
+}
+
+.gallery-item {
+  background: #3b82f6;
+  color: white;
+  padding: 30px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: bold;
+}`,
+    requirements: [
+      {
+        id: 'req-html-grid',
+        text: 'Contains .grid-gallery with at least 4 .gallery-item elements',
+        tag: 'div',
+        minCount: 5
+      }
+    ],
+    cssRequirements: [
+      {
+        id: 'req-css-grid-display',
+        text: '.grid-gallery must have display: grid',
+        selector: '.grid-gallery',
+        declarations: [{ property: 'display', expectedValue: 'grid' }]
+      },
+      {
+        id: 'req-css-grid-cols',
+        text: '.grid-gallery must configure grid-template-columns with repeat()',
+        selector: '.grid-gallery',
+        declarations: [{ property: 'grid-template-columns', expectedValue: /repeat/i }]
+      },
+      {
+        id: 'req-css-grid-gap',
+        text: '.grid-gallery must define gap spacing',
+        selector: '.grid-gallery',
+        declarations: [{ property: 'gap' }]
+      }
+    ],
+    explanation: 'CSS Grid repeat(auto-fit, minmax(min, 1fr)) creates an intrinsically responsive layout without requiring manual media queries.'
+  },
+  {
+    id: 'exercise-box-model',
+    courseId: 'css',
+    moduleId: 'css-module-2',
+    title: 'Box Model & Padding Control',
+    task: 'Apply universal box-sizing: border-box, and style the box element with padding, border, and border-radius.',
+    difficulty: 'Beginner',
+    starterCode: `<div class="box-preview">
+  <div class="box">
+    <h3>Box Model Component</h3>
+    <p>Margins, borders, and padding properly configured.</p>
+  </div>
+</div>`,
+    starterCss: `/* 1. Apply border-box sizing */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* 2. Configure .box padding, margin, and border */
+.box {
+  background-color: #f8fafc;
+  /* Add padding, margin, border, and border-radius below */
+}`,
+    solutionCss: `*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+.box {
+  background-color: #f8fafc;
+  padding: 20px;
+  margin: 16px;
+  border: 2px solid #cbd5e1;
+  border-radius: 8px;
+}`,
+    requirements: [
+      {
+        id: 'req-html-box',
+        text: 'Contains .box element with heading and paragraph',
+        tag: 'div',
+        minCount: 2
+      }
+    ],
+    cssRequirements: [
+      {
+        id: 'req-css-border-box',
+        text: 'Apply box-sizing: border-box',
+        rawPattern: /box-sizing\s*:\s*border-box/i
+      },
+      {
+        id: 'req-css-box-padding',
+        text: '.box must have padding defined',
+        selector: '.box',
+        declarations: [{ property: 'padding' }]
+      },
+      {
+        id: 'req-css-box-radius',
+        text: '.box must have border-radius for rounded corners',
+        selector: '.box',
+        declarations: [{ property: 'border-radius' }]
+      }
+    ],
+    explanation: 'box-sizing: border-box includes padding and border within the elements total width and height, preventing overflow bugs.'
+  },
+  {
+    id: 'exercise-responsive-nav',
+    courseId: 'css',
+    moduleId: 'css-module-7',
+    title: 'Responsive Navigation with Media Queries',
+    task: 'Create a navigation bar that stacks vertically on mobile screens using an @media query.',
+    difficulty: 'Intermediate',
+    starterCode: `<nav class="navbar">
+  <div class="logo">BrandLogo</div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>`,
+    starterCss: `.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background: #0f172a;
+  color: white;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  color: #94a3b8;
+  text-decoration: none;
+}
+
+/* Add @media query below for max-width (e.g. 640px or 768px) */
+/* Inside media query, set .navbar and .nav-links to flex-direction: column */
+`,
+    solutionCss: `.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background: #0f172a;
+  color: white;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  color: #94a3b8;
+  text-decoration: none;
+}
+
+@media (max-width: 640px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .nav-links {
+    flex-direction: column;
+    gap: 8px;
+  }
+}`,
+    requirements: [
+      {
+        id: 'req-html-nav',
+        text: 'Contains <nav> landmark with .nav-links',
+        tag: 'nav',
+        minCount: 1
+      }
+    ],
+    cssRequirements: [
+      {
+        id: 'req-css-media-query',
+        text: 'Define @media query with max-width',
+        mediaQueryRequired: true,
+        mediaCondition: 'max-width'
+      },
+      {
+        id: 'req-css-flex-direction',
+        text: 'Use flex-direction: column for stacked layout on mobile',
+        rawPattern: /flex-direction\s*:\s*column/i
+      }
+    ],
+    explanation: 'Media queries enable adaptive interfaces that switch from row-based layouts on wide screens to column-based stacks on compact displays.'
+  },
+  {
+    id: 'exercise-hero-banner',
+    courseId: 'css',
+    moduleId: 'css-module-6',
+    title: 'CSS Custom Properties (Variables)',
+    task: 'Declare CSS custom properties in :root and consume them for theming the hero banner.',
+    difficulty: 'Intermediate',
+    starterCode: `<div class="hero">
+  <h1 class="hero-title">Elevate Your Web Craft</h1>
+  <p class="hero-subtitle">Interactive browser-based frontend education.</p>
+  <button class="hero-cta">Get Started</button>
+</div>`,
+    starterCss: `/* 1. Define custom properties in :root */
+:root {
+  /* Define --primary-color and --hero-bg */
+}
+
+/* 2. Use var(--...) in the hero rules */
+.hero {
+  padding: 40px;
+  text-align: center;
+}
+
+.hero-title {
+  font-size: 28px;
+}
+
+.hero-cta {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}`,
+    solutionCss: `:root {
+  --primary-color: #2563eb;
+  --hero-bg: #eff6ff;
+}
+
+.hero {
+  background-color: var(--hero-bg);
+  padding: 40px;
+  text-align: center;
+}
+
+.hero-title {
+  color: var(--primary-color);
+  font-size: 28px;
+}
+
+.hero-cta {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}`,
+    requirements: [
+      {
+        id: 'req-html-hero',
+        text: 'Contains .hero with heading and button',
+        tag: 'div',
+        minCount: 1
+      }
+    ],
+    cssRequirements: [
+      {
+        id: 'req-css-custom-props',
+        text: 'Declare CSS variables using -- prefix in :root',
+        rawPattern: /--[a-z0-9-_]+\s*:/i
+      },
+      {
+        id: 'req-css-var-function',
+        text: 'Consume CSS variables using the var() function',
+        rawPattern: /var\(--[a-z0-9-_]+\)/i
+      }
+    ],
+    explanation: 'CSS Custom Properties (:root { --var: value; }) provide dynamic, cascading variables that power scalable design tokens and themes.'
   }
 ];
 
 export function getExercise(exerciseId) {
   return exercises.find((e) => e.id === exerciseId);
 }
+

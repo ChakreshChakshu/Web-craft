@@ -2,16 +2,582 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  * {
-    border-color: theme('colors.slate.200');
-  }
-  .dark * {
-    border-color: theme('colors.slate.800');
-  }
+/* ==========================================================================
+   WEBCRAFT GLOBAL DESIGN SYSTEM - 5-COLOR PALETTE ARCHITECTURE
+   Coolors Source:
+   1. #FFFCF2 - Warm Floral Cream (Light BG, Light Cards, Dark Mode Text)
+   2. #CCC5B9 - Warm Pale Sand (Borders, Muted Structure, Neutral Badges)
+   3. #403D39 - Charcoal Slate (Elevated Dark Surfaces, Secondary Body Text)
+   4. #252422 - Deep Obsidian (Dark Mode Canvas, Main Text in Light Mode)
+   5. #EB5E28 - High-Energy Flame Orange (Accent, CTAs, Rings, Highlights)
+   ========================================================================== */
+
+:root {
+  /* Direct Palette Tokens */
+  --craft-cream: #FFFCF2;
+  --craft-sand: #CCC5B9;
+  --craft-charcoal: #403D39;
+  --craft-dark: #252422;
+  --craft-flame: #EB5E28;
+  --craft-flame-hover: #D84F1B;
+  --craft-flame-subtle: rgba(235, 94, 40, 0.12);
+  --craft-flame-glow: rgba(235, 94, 40, 0.25);
+
+  /* Light Theme Variables */
+  --bg-app: #FFFCF2;
+  --bg-surface: #FFFCF2;
+  --bg-surface-elevated: #F5EFE3;
+  --bg-muted: #EBE4D5;
+
+  --border-subtle: rgba(204, 197, 185, 0.6);
+  --border-default: #CCC5B9;
+  --border-strong: #403D39;
+
+  --text-primary: #252422;
+  --text-secondary: #403D39;
+  --text-muted: #7A7468;
+
+  --accent-primary: #EB5E28;
+  --accent-hover: #D84F1B;
+  --accent-surface: rgba(235, 94, 40, 0.1);
+  --accent-border: rgba(235, 94, 40, 0.35);
+
+  /* Typography Scale Tokens */
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', Menlo, Monaco, Consolas, monospace;
+
+  --text-2xs: 0.6875rem; /* 11px */
+  --text-xs: 0.75rem;    /* 12px */
+  --text-sm: 0.875rem;   /* 14px */
+  --text-base: 1rem;      /* 16px */
+  --text-lg: 1.125rem;   /* 18px */
+  --text-xl: 1.25rem;    /* 20px */
+  --text-2xl: 1.5rem;    /* 24px */
+  --text-3xl: 1.875rem;  /* 30px */
+  --text-4xl: 2.25rem;   /* 36px */
+
+  /* UI Radii & Elevation */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+  --shadow-warm: 0 4px 20px -2px rgba(37, 36, 34, 0.08);
 }
 
-/* Custom subtle scrollbars */
+.dark {
+  /* Dark Theme Variables */
+  --bg-app: #252422;
+  --bg-surface: #2E2D2A;
+  --bg-surface-elevated: #363430;
+  --bg-muted: #403D39;
+
+  --border-subtle: rgba(64, 61, 57, 0.7);
+  --border-default: #403D39;
+  --border-strong: #CCC5B9;
+
+  --text-primary: #FFFCF2;
+  --text-secondary: #CCC5B9;
+  --text-muted: #8E8779;
+
+  --accent-primary: #EB5E28;
+  --accent-hover: #FA875C;
+  --accent-surface: rgba(235, 94, 40, 0.16);
+  --accent-border: rgba(235, 94, 40, 0.45);
+
+  --shadow-warm: 0 4px 24px -2px rgba(0, 0, 0, 0.45);
+}
+
+/* ==========================================================================
+   GLOBAL BASE RESETS - NATIVE HTML ELEMENTS
+   ========================================================================== */
+
+html {
+  font-family: var(--font-sans);
+  background-color: var(--bg-app);
+  color: var(--text-primary);
+}
+
+body {
+  background-color: var(--bg-app);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  margin: 0;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+* {
+  border-color: var(--border-default);
+}
+
+/* Native Typography Scale */
+h1 {
+  font-size: var(--text-3xl);
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+h3 {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.35;
+}
+
+h4 {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+p {
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+}
+
+/* Form Controls */
+input, select, textarea {
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  border-color: var(--border-default);
+  font-family: inherit;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--craft-flame) !important;
+  box-shadow: 0 0 0 3px var(--craft-flame-glow) !important;
+}
+
+/* Text Selection */
+::selection {
+  background-color: rgba(235, 94, 40, 0.25);
+  color: var(--text-primary);
+}
+
+/* ==========================================================================
+   GLOBAL UI COMPONENT UTILITIES
+   ========================================================================== */
+
+/* Primary Action Buttons */
+.btn-primary,
+.craft-btn-primary {
+  background-color: var(--craft-flame) !important;
+  color: #FFFFFF !important;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  padding: 0.625rem 1rem;
+  border-radius: var(--radius-lg);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 2px 8px -1px rgba(235, 94, 40, 0.4);
+  transition: all 0.15s ease-in-out;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-primary:hover,
+.craft-btn-primary:hover {
+  background-color: var(--craft-flame-hover) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px -2px rgba(235, 94, 40, 0.5);
+}
+
+.btn-primary:active,
+.craft-btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Secondary Buttons */
+.btn-secondary,
+.craft-btn-secondary {
+  background-color: var(--bg-surface) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-default) !important;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  padding: 0.625rem 1rem;
+  border-radius: var(--radius-lg);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.15s ease-in-out;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-secondary:hover,
+.craft-btn-secondary:hover {
+  background-color: var(--bg-surface-elevated) !important;
+  border-color: var(--craft-flame) !important;
+  color: var(--craft-flame) !important;
+}
+
+/* Global Cards */
+.craft-card,
+.card {
+  background-color: var(--bg-surface) !important;
+  border: 1px solid var(--border-default) !important;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-warm);
+  transition: all 0.2s ease;
+}
+
+.craft-card-interactive:hover {
+  border-color: var(--craft-flame) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -4px rgba(37, 36, 34, 0.15);
+}
+
+/* Badges */
+.craft-badge-accent,
+.badge-accent {
+  background-color: var(--accent-surface) !important;
+  color: var(--craft-flame) !important;
+  border: 1px solid var(--accent-border) !important;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-md);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.craft-badge-neutral,
+.badge-neutral {
+  background-color: var(--bg-surface-elevated) !important;
+  color: var(--text-secondary) !important;
+  border: 1px solid var(--border-default) !important;
+  font-size: var(--text-xs);
+  font-weight: 500;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-md);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* Typography Classes */
+.craft-h1 {
+  font-size: var(--text-3xl);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  color: var(--text-primary);
+}
+
+.craft-h2 {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.craft-h3 {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--text-primary);
+}
+
+.craft-body {
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.craft-caption {
+  font-size: var(--text-xs);
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   GLOBAL UTILITY OVERRIDES (Ensures 100% adherence to the 5 Coolors tokens)
+   ========================================================================== */
+
+/* 1. Light Mode Surface Override: replace harsh pure white with Warm Cream (#FFFCF2) */
+html:not(.dark) .bg-white,
+html:not(.dark) .bg-slate-50 {
+  background-color: var(--craft-cream) !important;
+}
+
+html:not(.dark) .bg-slate-100 {
+  background-color: var(--bg-surface-elevated) !important;
+}
+
+html:not(.dark) .bg-slate-200 {
+  background-color: #EDE6D8 !important;
+}
+
+/* 2. Dark Mode Surface Override: enforce Deep Dark (#252422) & Charcoal (#403D39) */
+.dark .bg-slate-900,
+.dark .bg-slate-950,
+.dark .bg-black {
+  background-color: var(--craft-dark) !important;
+}
+
+.dark .bg-slate-800 {
+  background-color: #2E2D2A !important;
+}
+
+.dark .bg-slate-700 {
+  background-color: var(--craft-charcoal) !important;
+}
+
+/* 3. Global Border Overrides: enforce Sand (#CCC5B9) in light, Charcoal (#403D39) in dark */
+html:not(.dark) .border-slate-100,
+html:not(.dark) .border-slate-200,
+html:not(.dark) .border-slate-300 {
+  border-color: var(--craft-sand) !important;
+}
+
+.dark .border-slate-800,
+.dark .border-slate-700 {
+  border-color: var(--craft-charcoal) !important;
+}
+
+/* 4. Global Text Overrides */
+html:not(.dark) .text-slate-900,
+html:not(.dark) .text-slate-800 {
+  color: var(--craft-dark) !important;
+}
+
+html:not(.dark) .text-slate-700,
+html:not(.dark) .text-slate-600 {
+  color: var(--craft-charcoal) !important;
+}
+
+html:not(.dark) .text-slate-500,
+html:not(.dark) .text-slate-400 {
+  color: var(--text-muted) !important;
+}
+
+.dark .text-white,
+.dark .text-slate-100,
+.dark .text-slate-50 {
+  color: var(--craft-cream) !important;
+}
+
+.dark .text-slate-200,
+.dark .text-slate-300,
+.dark .text-slate-400 {
+  color: var(--craft-sand) !important;
+}
+
+.dark .text-slate-500 {
+  color: var(--text-muted) !important;
+}
+
+/* 5. Flame Accent Overrides (all primary buttons, icons, highlights to #EB5E28) */
+.bg-blue-600,
+.bg-blue-500,
+.hover\:bg-blue-700:hover,
+.hover\:bg-blue-600:hover,
+.bg-indigo-600,
+.hover\:bg-indigo-700:hover {
+  background-color: var(--craft-flame) !important;
+}
+
+.text-blue-600,
+.text-blue-500,
+.dark .text-blue-400,
+.text-indigo-600 {
+  color: var(--craft-flame) !important;
+}
+
+.border-blue-600,
+.border-blue-500 {
+  border-color: var(--craft-flame) !important;
+}
+
+.ring-blue-500,
+.focus\:ring-blue-500:focus {
+  --tw-ring-color: var(--craft-flame) !important;
+}
+
+.bg-blue-50,
+.bg-blue-100,
+.dark .bg-blue-950,
+.dark .bg-blue-900\/40,
+.dark .bg-blue-950\/60 {
+  background-color: var(--accent-surface) !important;
+}
+
+.border-blue-200,
+.dark .border-blue-800,
+.dark .border-blue-900 {
+  border-color: var(--accent-border) !important;
+}
+
+/* ==========================================================================
+   STRICT 5-COLOR PALETTE SYSTEM - ZERO-LEAKAGE INTERCEPTOR
+   Guarantees that no rogue green, emerald, purple, amber, cyan, or red leaks
+   into dark mode or light mode. Everything is mapped to the 5 colors:
+   1. #FFFCF2 (Cream)
+   2. #CCC5B9 (Sand)
+   3. #403D39 (Charcoal)
+   4. #252422 (Obsidian Dark)
+   5. #EB5E28 (Flame Orange)
+   ========================================================================== */
+
+/* Dark Mode Backgrounds - No foreign colors */
+.dark [class*="bg-emerald-950"],
+.dark [class*="bg-green-950"],
+.dark [class*="bg-amber-950"],
+.dark [class*="bg-yellow-950"],
+.dark [class*="bg-purple-950"],
+.dark [class*="bg-cyan-950"],
+.dark [class*="bg-red-950"],
+.dark [class*="bg-emerald-900"],
+.dark [class*="bg-amber-900"],
+.dark [class*="bg-purple-900"],
+.dark [class*="bg-red-900"] {
+  background-color: var(--bg-surface) !important;
+}
+
+.dark .bg-emerald-500,
+.dark .bg-emerald-600,
+.dark .bg-green-500,
+.dark .bg-green-600,
+.dark .bg-amber-500,
+.dark .bg-purple-600,
+.dark .bg-red-500,
+.dark .bg-red-600 {
+  background-color: var(--craft-flame) !important;
+}
+
+/* Dark Mode Borders */
+.dark [class*="border-emerald-800"],
+.dark [class*="border-emerald-900"],
+.dark [class*="border-green-800"],
+.dark [class*="border-amber-800"],
+.dark [class*="border-amber-900"],
+.dark [class*="border-purple-800"],
+.dark [class*="border-purple-900"],
+.dark [class*="border-red-800"],
+.dark [class*="border-red-900"] {
+  border-color: var(--craft-charcoal) !important;
+}
+
+/* Dark Mode Text */
+.dark [class*="text-emerald-400"],
+.dark [class*="text-emerald-500"],
+.dark [class*="text-emerald-600"],
+.dark [class*="text-green-400"],
+.dark [class*="text-green-500"],
+.dark [class*="text-amber-400"],
+.dark [class*="text-amber-500"],
+.dark [class*="text-purple-400"],
+.dark [class*="text-purple-500"],
+.dark [class*="text-cyan-400"],
+.dark [class*="text-red-400"],
+.dark [class*="text-red-500"] {
+  color: var(--craft-flame) !important;
+}
+
+.dark [class*="text-emerald-200"],
+.dark [class*="text-emerald-300"],
+.dark [class*="text-green-200"],
+.dark [class*="text-green-300"],
+.dark [class*="text-amber-200"],
+.dark [class*="text-amber-300"],
+.dark [class*="text-purple-200"],
+.dark [class*="text-purple-300"],
+.dark [class*="text-red-200"],
+.dark [class*="text-red-300"] {
+  color: var(--craft-sand) !important;
+}
+
+/* Light Mode Overrides */
+html:not(.dark) [class*="bg-emerald-50"],
+html:not(.dark) [class*="bg-green-50"],
+html:not(.dark) [class*="bg-amber-50"],
+html:not(.dark) [class*="bg-yellow-50"],
+html:not(.dark) [class*="bg-purple-50"],
+html:not(.dark) [class*="bg-red-50"],
+html:not(.dark) [class*="bg-emerald-100"],
+html:not(.dark) [class*="bg-amber-100"],
+html:not(.dark) [class*="bg-purple-100"],
+html:not(.dark) [class*="bg-red-100"] {
+  background-color: var(--bg-surface-elevated) !important;
+}
+
+html:not(.dark) [class*="border-emerald-200"],
+html:not(.dark) [class*="border-green-200"],
+html:not(.dark) [class*="border-amber-200"],
+html:not(.dark) [class*="border-purple-200"],
+html:not(.dark) [class*="border-red-200"] {
+  border-color: var(--craft-sand) !important;
+}
+
+html:not(.dark) [class*="text-emerald-600"],
+html:not(.dark) [class*="text-emerald-700"],
+html:not(.dark) [class*="text-green-600"],
+html:not(.dark) [class*="text-amber-600"],
+html:not(.dark) [class*="text-amber-700"],
+html:not(.dark) [class*="text-purple-600"],
+html:not(.dark) [class*="text-red-600"],
+html:not(.dark) [class*="text-red-700"] {
+  color: var(--craft-flame) !important;
+}
+
+/* ==========================================================================
+   CODEMIRROR EDITOR STYLING
+   ========================================================================== */
+
+.cm-editor {
+  height: 100% !important;
+  font-family: var(--font-mono) !important;
+  font-size: 13.5px !important;
+  background-color: var(--bg-surface) !important;
+  color: var(--text-primary) !important;
+}
+
+.cm-scroller {
+  line-height: 1.6 !important;
+}
+
+.cm-cursor {
+  border-left-color: var(--craft-flame) !important;
+  border-left-width: 2px !important;
+}
+
+.cm-activeLine {
+  background-color: rgba(235, 94, 40, 0.06) !important;
+}
+
+.dark .cm-activeLine {
+  background-color: rgba(235, 94, 40, 0.1) !important;
+}
+
+.cm-gutters {
+  background-color: var(--bg-surface-elevated) !important;
+  border-right: 1px solid var(--border-default) !important;
+  color: var(--text-muted) !important;
+}
+
+/* ==========================================================================
+   CUSTOM WARM SCROLLBARS
+   ========================================================================== */
+
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -22,29 +588,18 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.4);
+  background: var(--craft-sand);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(148, 163, 184, 0.7);
+  background: var(--craft-flame);
 }
 
 .dark ::-webkit-scrollbar-thumb {
-  background: rgba(100, 116, 139, 0.4);
+  background: var(--craft-charcoal);
 }
 
 .dark ::-webkit-scrollbar-thumb:hover {
-  background: rgba(100, 116, 139, 0.7);
-}
-
-/* CodeMirror customizations for dark/light */
-.cm-editor {
-  height: 100% !important;
-  font-family: 'JetBrains Mono', monospace !important;
-  font-size: 13.5px !important;
-}
-
-.cm-scroller {
-  line-height: 1.6 !important;
+  background: var(--craft-flame);
 }

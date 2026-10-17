@@ -17,7 +17,7 @@ export const TableOfContents = ({
             Progress Status
           </span>
           {isCompleted ? (
-            <span className="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-2 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800">
+            <span className="craft-badge-accent inline-flex items-center gap-1 text-[11px] font-medium px-2 py-0.5">
               <CheckCircle2 className="w-3 h-3" />
               Completed
             </span>
@@ -35,7 +35,7 @@ export const TableOfContents = ({
           className={`w-full py-2 px-3 rounded-lg font-medium text-xs transition-all flex items-center justify-center gap-1.5 shadow-sm ${
             isCompleted
               ? 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
-              : 'bg-emerald-600 hover:bg-emerald-700 text-white'
+              : 'craft-btn-primary'
           }`}
         >
           <CheckCircle2 className="w-3.5 h-3.5" />

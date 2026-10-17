@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { PageLayout } from '../components/layout/PageLayout';
-import { AlertCircle, ArrowLeft, Home } from 'lucide-react';
+import { AlertCircle, Home } from 'lucide-react';
 
 export const NotFoundPage = () => {
   return (

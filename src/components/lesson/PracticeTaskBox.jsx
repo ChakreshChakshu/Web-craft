@@ -4,7 +4,7 @@ import { html } from '@codemirror/lang-html';
 import { css } from '@codemirror/lang-css';
 import { useTheme } from '../../context/ThemeContext';
 import { generatePreviewDocument } from '../../lib/preview';
-import { HelpCircle, Play, RotateCcw, CheckCircle, ChevronDown, ChevronUp } from 'lucide-react';
+import { HelpCircle, Play, RotateCcw, ChevronDown, ChevronUp } from 'lucide-react';
 
 export const PracticeTaskBox = ({ task, courseId }) => {
   const { theme } = useTheme();

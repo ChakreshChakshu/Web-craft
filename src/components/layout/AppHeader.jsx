@@ -28,7 +28,7 @@ import { AuthModal } from '../auth/AuthModal';
 
 export const AppHeader = () => {
   const location = useLocation();
-  const { isCourseUnlocked, isCssUnlocked, htmlStats, syncStatus } = useProgress();
+  const { isCourseUnlocked, htmlStats, syncStatus } = useProgress();
   const { theme, toggleTheme } = useTheme();
   const { user, profile, signOut } = useAuth();
 
@@ -71,6 +71,7 @@ export const AppHeader = () => {
       tag: 'Markup',
       color: 'text-orange-500 dark:text-orange-400',
       locked: false,
+      isComingSoon: false,
     },
     {
       id: 'css',
@@ -82,54 +83,51 @@ export const AppHeader = () => {
       color: 'text-blue-500 dark:text-blue-400',
       locked: !isCourseUnlocked('css'),
       lockText: 'Requires 70% HTML',
+      isComingSoon: false,
     },
     {
       id: 'javascript',
       name: 'JavaScript (ES6+) Mastery',
       shortName: 'JavaScript',
-      path: '/learn/javascript',
+      path: '#',
       icon: Code2,
-      tag: 'Scripting',
-      color: 'text-amber-500 dark:text-amber-400',
-      locked: !isCourseUnlocked('javascript'),
-      lockText: 'Requires 70% CSS',
+      tag: 'Coming Soon',
+      color: 'text-slate-400 dark:text-slate-500',
+      locked: true,
+      isComingSoon: true,
+      lockText: 'Coming Soon',
     },
     {
       id: 'react',
       name: 'React.js Components & Hooks',
       shortName: 'React.js',
-      path: '/learn/react',
+      path: '#',
       icon: Atom,
-      tag: 'Frontend',
-      color: 'text-cyan-500 dark:text-cyan-400',
-      locked: !isCourseUnlocked('react'),
-      lockText: 'Requires 70% JavaScript',
+      tag: 'Coming Soon',
+      color: 'text-slate-400 dark:text-slate-500',
+      locked: true,
+      isComingSoon: true,
+      lockText: 'Coming Soon',
     },
     {
       id: 'nodejs',
       name: 'Node.js & Backend Architecture',
       shortName: 'Node.js',
-      path: '/learn/nodejs',
+      path: '#',
       icon: Server,
-      tag: 'Backend',
-      color: 'text-emerald-500 dark:text-emerald-400',
-      locked: !isCourseUnlocked('nodejs'),
-      lockText: 'Requires 70% React',
+      tag: 'Coming Soon',
+      color: 'text-slate-400 dark:text-slate-500',
+      locked: true,
+      isComingSoon: true,
+      lockText: 'Coming Soon',
     },
-  ];
-
-  const primaryNavItems = [
-    { name: 'Dashboard', path: '/', icon: BarChart2 },
-    { name: 'Playground', path: '/playground', icon: Terminal },
-    { name: 'Practice', path: '/practice', icon: CheckSquare },
-    { name: 'Progress', path: '/progress', icon: BarChart2 },
   ];
 
   const displayName = profile?.display_name || user?.user_metadata?.display_name || user?.email?.split('@')[0] || 'Learner';
 
   return (
     <>
-      <header className="sticky top-0 z-40 w-full border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md">
+      <header className="sticky top-0 z-40 w-full border-b border-slate-200 dark:border-slate-800 bg-var(--craft-dark) dark:bg-slate-900/95 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           
           {/* Brand / Logo */}
@@ -142,9 +140,9 @@ export const AppHeader = () => {
                 <Code2 className="w-5 h-5" />
               </div>
               <div className="flex flex-col">
-                <span className="leading-tight tracking-tight flex items-center gap-1.5">
-                  WebDev Lab
-                  <span className="text-[10px] font-semibold uppercase px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
+                <span className="leading-tight tracking-tight flex items-center gap-1.5 font-extrabold">
+                  WebCraft
+                  <span className="text-[10px] font-semibold uppercase px-1.5 py-0.5 craft-badge-accent">
                     Pro
                   </span>
                 </span>
@@ -191,6 +189,27 @@ export const AppHeader = () => {
                     {courseList.map((c) => {
                       const Icon = c.icon;
                       const active = location.pathname.startsWith(c.path);
+
+                      if (c.isComingSoon) {
+                        return (
+                          <div
+                            key={c.id}
+                            className="flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium text-slate-400 dark:text-slate-500 cursor-not-allowed bg-slate-50/50 dark:bg-slate-800/20"
+                            title="Course currently under development. Students focus on HTML5 & CSS3 first."
+                          >
+                            <div className="flex items-center gap-2.5 min-w-0">
+                              <Icon className="w-4 h-4 flex-shrink-0 opacity-50" />
+                              <div className="truncate">
+                                <div>{c.name}</div>
+                              </div>
+                            </div>
+                            <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500 font-medium">
+                              Coming Soon
+                            </span>
+                          </div>
+                        );
+                      }
+
                       return (
                         <Link
                           key={c.id}
@@ -210,7 +229,7 @@ export const AppHeader = () => {
                           </div>
 
                           {c.locked ? (
-                            <span className="flex items-center gap-1 text-[10px] px-1.5 py-0.5 rounded bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-900">
+                            <span className="flex items-center gap-1 text-[10px] px-1.5 py-0.5 rounded bg-[#403D39]/30 text-[#CCC5B9] border border-[#403D39]">
                               <Lock className="w-3 h-3" /> Locked
                             </span>
                           ) : (
@@ -282,8 +301,8 @@ export const AppHeader = () => {
                   </>
                 ) : syncStatus === 'synced' ? (
                   <>
-                    <Cloud className="w-3.5 h-3.5 text-emerald-500" />
-                    <span className="text-[11px] text-emerald-600 dark:text-emerald-400">Cloud Synced</span>
+                    <Cloud className="w-3.5 h-3.5 text-[#EB5E28]" />
+                    <span className="text-[11px] text-[#EB5E28]">Cloud Synced</span>
                   </>
                 ) : (
                   <>
@@ -300,7 +319,7 @@ export const AppHeader = () => {
               className="hidden sm:flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/70 text-slate-700 dark:text-slate-300 hover:border-blue-400 transition-colors"
               title="View overall learning progress"
             >
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-[#EB5E28] animate-pulse" />
               <span>HTML: {htmlStats.completionPercentage}%</span>
             </Link>
 
@@ -323,7 +342,7 @@ export const AppHeader = () => {
                   className="flex items-center gap-2 p-1.5 rounded-lg border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
                   aria-label="User profile menu"
                 >
-                  <div className="w-7 h-7 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold uppercase">
+                  <div className="w-7 h-7 rounded-full bg-[#EB5E28] text-white flex items-center justify-center text-xs font-bold uppercase">
                     {displayName.charAt(0)}
                   </div>
                   <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
@@ -332,10 +351,21 @@ export const AppHeader = () => {
                 {userDropdownOpen && (
                   <div className="absolute right-0 mt-2 w-56 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl py-2 z-50">
                     <div className="px-4 py-2 border-b border-slate-100 dark:border-slate-800">
-                      <div className="text-sm font-semibold text-slate-800 dark:text-slate-200 truncate">
-                        {displayName}
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="text-sm font-semibold text-slate-800 dark:text-slate-200 truncate">
+                          {displayName}
+                        </span>
+                        {user.isGuest ? (
+                          <span className="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-[#403D39]/40 text-[#CCC5B9] border border-[#403D39] shrink-0">
+                            Guest
+                          </span>
+                        ) : (
+                          <span className="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-[#EB5E28]/15 text-[#EB5E28] border border-[#EB5E28]/30 shrink-0">
+                            Student
+                          </span>
+                        )}
                       </div>
-                      <div className="text-xs text-slate-500 truncate font-mono">
+                      <div className="text-xs text-slate-500 truncate font-mono mt-0.5">
                         {user.email}
                       </div>
                     </div>
@@ -346,7 +376,7 @@ export const AppHeader = () => {
                           setUserDropdownOpen(false);
                           signOut();
                         }}
-                        className="w-full flex items-center gap-2 px-3 py-2 text-xs font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 rounded-lg transition-colors"
+                        className="w-full flex items-center gap-2 px-3 py-2 text-xs font-medium text-[#EB5E28] hover:bg-[#EB5E28]/10 rounded-lg transition-colors"
                       >
                         <LogOut className="w-3.5 h-3.5" />
                         <span>Sign Out</span>
@@ -356,14 +386,13 @@ export const AppHeader = () => {
                 )}
               </div>
             ) : (
-              <button
-                type="button"
-                onClick={() => setAuthModalOpen(true)}
+              <Link
+                to="/login"
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-sm transition-colors"
               >
                 <LogIn className="w-3.5 h-3.5" />
                 <span>Sign In</span>
-              </button>
+              </Link>
             )}
 
             {/* Mobile Menu Toggle Button */}
@@ -403,6 +432,24 @@ export const AppHeader = () => {
                 {courseList.map((c) => {
                   const Icon = c.icon;
                   const active = location.pathname.startsWith(c.path);
+
+                  if (c.isComingSoon) {
+                    return (
+                      <div
+                        key={c.id}
+                        className="flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium text-slate-400 dark:text-slate-500 cursor-not-allowed bg-slate-50/50 dark:bg-slate-800/20"
+                      >
+                        <div className="flex items-center gap-2.5">
+                          <Icon className="w-4 h-4 opacity-50" />
+                          <span>{c.name}</span>
+                        </div>
+                        <span className="text-[11px] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500 font-medium">
+                          Coming Soon
+                        </span>
+                      </div>
+                    );
+                  }
+
                   return (
                     <Link
                       key={c.id}
@@ -419,8 +466,8 @@ export const AppHeader = () => {
                         <span>{c.name}</span>
                       </div>
                       {c.locked && (
-                        <span className="flex items-center gap-1 text-xs px-2 py-0.5 rounded bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-900">
-                          <Lock className="w-3 h-3" /> Locked
+                        <span className="flex items-center gap-1 text-xs px-2 py-0.5 rounded bg-[#403D39]/30 text-[#CCC5B9] border border-[#403D39]">
+                          <Lock className="w-3.5 h-3.5" /> Locked
                         </span>
                       )}
                     </Link>
@@ -457,19 +504,42 @@ export const AppHeader = () => {
               </Link>
             </div>
 
-            {!user && (
-              <div className="pt-2 border-t border-slate-100 dark:border-slate-800">
+            {user ? (
+              <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between px-2">
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="w-8 h-8 rounded-full bg-[#EB5E28] text-white flex items-center justify-center text-xs font-bold uppercase shrink-0">
+                    {displayName.charAt(0)}
+                  </div>
+                  <div className="truncate">
+                    <div className="text-xs font-semibold text-slate-800 dark:text-slate-200 truncate">
+                      {displayName}
+                    </div>
+                    <div className="text-[10px] text-slate-400 font-mono truncate">
+                      {user.email}
+                    </div>
+                  </div>
+                </div>
                 <button
                   type="button"
                   onClick={() => {
                     setMobileMenuOpen(false);
-                    setAuthModalOpen(true);
+                    signOut();
                   }}
-                  className="w-full py-2 px-3 rounded-lg bg-blue-600 text-white text-sm font-semibold flex items-center justify-center gap-2"
+                  className="px-2.5 py-1 rounded-lg text-xs font-medium text-[#EB5E28] hover:bg-[#EB5E28]/10 shrink-0"
+                >
+                  Sign Out
+                </button>
+              </div>
+            ) : (
+              <div className="pt-2 border-t border-slate-100 dark:border-slate-800">
+                <Link
+                  to="/login"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="w-full py-2 px-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold flex items-center justify-center gap-2"
                 >
                   <LogIn className="w-4 h-4" />
                   <span>Sign In / Register</span>
-                </button>
+                </Link>
               </div>
             )}
           </div>

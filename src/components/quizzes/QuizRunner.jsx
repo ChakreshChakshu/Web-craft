@@ -16,7 +16,6 @@ export const QuizRunner = ({ quiz, onCompleted }) => {
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState({});
-  const [revealedExplanations, setRevealedExplanations] = useState({});
   const [isFinished, setIsFinished] = useState(false);
 
   const question = quiz.questions[currentQuestionIndex];
@@ -79,8 +78,8 @@ export const QuizRunner = ({ quiz, onCompleted }) => {
       <div className="p-8 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-center max-w-xl mx-auto shadow-sm space-y-6">
         <div className={`w-16 h-16 rounded-full mx-auto flex items-center justify-center ${
           passed 
-            ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-400' 
-            : 'bg-amber-100 text-amber-600 dark:bg-amber-950 dark:text-amber-400'
+            ? 'bg-craft-flame text-white shadow-md' 
+            : 'bg-slate-200 text-slate-600 dark:bg-slate-800 dark:text-slate-300'
         }`}>
           <Trophy className="w-8 h-8" />
         </div>
@@ -99,7 +98,7 @@ export const QuizRunner = ({ quiz, onCompleted }) => {
         <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 flex items-center justify-around text-center text-xs">
           <div>
             <span className="block text-slate-400">Correct</span>
-            <span className="text-lg font-bold text-emerald-600 dark:text-emerald-400">{score}</span>
+            <span className="text-lg font-bold text-craft-flame">{score}</span>
           </div>
           <div>
             <span className="block text-slate-400">Questions</span>
@@ -107,14 +106,14 @@ export const QuizRunner = ({ quiz, onCompleted }) => {
           </div>
           <div>
             <span className="block text-slate-400">Score</span>
-            <span className="text-lg font-bold text-blue-600 dark:text-blue-400">{percentage}%</span>
+            <span className="text-lg font-bold text-craft-flame">{percentage}%</span>
           </div>
         </div>
 
         <button
           type="button"
           onClick={handleRetry}
-          className="flex items-center justify-center gap-2 w-full py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm transition-colors"
+          className="craft-btn-primary w-full py-2.5 text-sm"
         >
           <RotateCcw className="w-4 h-4" />
           <span>Retake Assessment</span>
@@ -124,14 +123,14 @@ export const QuizRunner = ({ quiz, onCompleted }) => {
   }
 
   return (
-    <div className="max-w-2xl mx-auto p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm space-y-6">
+    <div className="max-w-2xl mx-auto p-6 rounded-2xl craft-card space-y-6">
       {/* Top status */}
       <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3 text-xs">
         <span className="font-semibold text-slate-500 uppercase tracking-wider">
           Question {currentQuestionIndex + 1} of {quiz.questions.length}
         </span>
         {existingResult && (
-          <span className="text-emerald-600 dark:text-emerald-400 font-medium">
+          <span className="text-craft-flame font-medium">
             Previous Best: {existingResult.percentage}%
           </span>
         )}
@@ -164,11 +163,11 @@ export const QuizRunner = ({ quiz, onCompleted }) => {
 
           if (isAnswered) {
             if (idx === question.correctIndex) {
-              btnStyle = 'border-emerald-500 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-900 dark:text-emerald-200 font-medium';
+              btnStyle = 'border-craft-flame bg-craft-flame/15 text-slate-900 dark:text-white font-medium ring-1 ring-craft-flame/40';
             } else if (idx === selectedOption) {
-              btnStyle = 'border-red-500 bg-red-50 dark:bg-red-950/40 text-red-900 dark:text-red-200';
+              btnStyle = 'border-slate-400 dark:border-slate-600 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-300 opacity-80';
             } else {
-              btnStyle = 'opacity-50 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950';
+              btnStyle = 'opacity-40 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950';
             }
           }
 
@@ -185,10 +184,10 @@ export const QuizRunner = ({ quiz, onCompleted }) => {
               </span>
               <span className="flex-1">{option}</span>
               {isAnswered && idx === question.correctIndex && (
-                <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
+                <CheckCircle2 className="w-4 h-4 text-craft-flame flex-shrink-0 mt-0.5" />
               )}
               {isAnswered && idx === selectedOption && idx !== question.correctIndex && (
-                <XCircle className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
+                <XCircle className="w-4 h-4 text-slate-500 flex-shrink-0 mt-0.5" />
               )}
             </button>
           );
@@ -199,11 +198,11 @@ export const QuizRunner = ({ quiz, onCompleted }) => {
       {isAnswered && (
         <div className={`p-4 rounded-xl border text-xs leading-relaxed space-y-1 ${
           isCorrect
-            ? 'bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-900 text-emerald-900 dark:text-emerald-300'
-            : 'bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-900 text-amber-900 dark:text-amber-300'
+            ? 'bg-craft-flame/10 border-craft-flame/30 text-slate-900 dark:text-white'
+            : 'bg-slate-100 dark:bg-slate-800/80 border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200'
         }`}>
           <div className="font-semibold flex items-center gap-1.5">
-            <HelpCircle className="w-3.5 h-3.5" />
+            <HelpCircle className="w-3.5 h-3.5 text-craft-flame" />
             <span>Explanation:</span>
           </div>
           <p>{question.explanation}</p>
@@ -226,7 +225,7 @@ export const QuizRunner = ({ quiz, onCompleted }) => {
           <button
             type="button"
             onClick={handleNext}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs transition-colors"
+            className="craft-btn-primary px-4 py-2 text-xs"
           >
             <span>{currentQuestionIndex === quiz.questions.length - 1 ? 'Finish Assessment' : 'Next Question'}</span>
             <ArrowRight className="w-3.5 h-3.5" />

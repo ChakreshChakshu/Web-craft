@@ -34,7 +34,7 @@ export const IncompleteLessonModal = ({
 
         {/* Header with Icon */}
         <div className="flex items-start gap-4">
-          <div className="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center flex-shrink-0">
+          <div className="w-12 h-12 rounded-xl bg-craft-flame/15 text-craft-flame flex items-center justify-center flex-shrink-0">
             <AlertCircle className="w-6 h-6" />
           </div>
           <div className="space-y-1 pr-6">
@@ -56,10 +56,10 @@ export const IncompleteLessonModal = ({
           {nextLessonTitle && (
             <div className="text-slate-600 dark:text-slate-400">
               <span className="font-semibold text-slate-700 dark:text-slate-300">Next Target: </span>
-              <span className="text-blue-600 dark:text-blue-400">{nextLessonTitle}</span>
+              <span className="text-craft-flame">{nextLessonTitle}</span>
             </div>
           )}
-          <p className="text-[11px] text-amber-600 dark:text-amber-400 pt-1 border-t border-slate-200/60 dark:border-slate-700/60">
+          <p className="text-[11px] text-craft-flame pt-1 border-t border-slate-200/60 dark:border-slate-700/60">
             💡 Tip: Lesson complete mark karne se aapka course progress percentage badhta hai aur agle courses unlock hote hain!
           </p>
         </div>
@@ -70,7 +70,7 @@ export const IncompleteLessonModal = ({
           <button
             type="button"
             onClick={onMarkCompleteAndProceed}
-            className="w-full py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 shadow-sm transition-colors"
+            className="craft-btn-primary w-full py-2.5 px-4 text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 shadow-sm transition-colors"
           >
             <CheckCircle2 className="w-4 h-4" />
             <span>Mark as Complete &amp; Proceed</span>

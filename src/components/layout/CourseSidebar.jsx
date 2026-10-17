@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { 
   CheckCircle2, 
   Circle, 
@@ -8,7 +8,6 @@ import {
   Search, 
   Lock, 
   BookOpen, 
-  Sparkles,
   ArrowRight
 } from 'lucide-react';
 import { useProgress } from '../../hooks/useProgress';
@@ -66,9 +65,9 @@ export const CourseSidebar = ({
 
       {/* Lock Notice if Course is locked */}
       {isLocked && unlockInfo.prerequisiteCourse && (
-        <div className="m-3 p-3 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900 text-amber-900 dark:text-amber-200 text-xs space-y-1.5">
-          <div className="flex items-center gap-1.5 font-bold text-amber-800 dark:text-amber-300">
-            <Lock className="w-3.5 h-3.5 text-amber-600 flex-shrink-0" />
+        <div className="m-3 p-3 rounded-xl bg-[#403D39]/30 border border-[#403D39] text-[#CCC5B9] text-xs space-y-1.5">
+          <div className="flex items-center gap-1.5 font-bold text-[#FFFCF2]">
+            <Lock className="w-3.5 h-3.5 text-[#EB5E28] flex-shrink-0" />
             <span>Course Locked</span>
           </div>
           <p className="leading-relaxed text-[11px]">
@@ -145,7 +144,7 @@ export const CourseSidebar = ({
                     {completedCount}/{mod.lessonIds.length}
                   </span>
                   {isModuleComplete && (
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+                    <CheckCircle2 className="w-3.5 h-3.5 text-craft-flame" />
                   )}
                 </div>
               </button>
@@ -180,7 +179,7 @@ export const CourseSidebar = ({
                       >
                         <div className="flex items-center gap-2 min-w-0">
                           {completed ? (
-                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" />
+                            <CheckCircle2 className="w-3.5 h-3.5 text-craft-flame flex-shrink-0" />
                           ) : isLocked ? (
                             <Lock className="w-3 h-3 text-slate-400 flex-shrink-0" />
                           ) : (

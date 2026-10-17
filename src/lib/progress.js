@@ -1,4 +1,4 @@
-import { COURSES, COURSE_ORDER, getCourse, isValidCourseId } from './courses';
+import { COURSES, COURSE_ORDER, ACTIVE_COURSE_IDS, getCourse, isValidCourseId } from './courses';
 import { exercises } from '../content/exercises/exercisesData';
 import { quizzes } from '../content/quizzes/quizzesData';
 
@@ -18,9 +18,12 @@ export function getHtmlCourseProgressPercentage(completedLessons = []) {
 }
 
 export function isCourseUnlocked(courseId, completedLessons = []) {
-  if (courseId === 'html') return true;
   const course = getCourse(courseId);
-  if (!course || !course.prerequisiteId) return true;
+  if (!course) return false;
+  // If course is coming soon / disabled, it is not unlocked
+  if (course.isComingSoon) return false;
+  if (courseId === 'html') return true;
+  if (!course.prerequisiteId) return true;
 
   // Prerequisite course must have reached at least 70%
   const prereqPercentage = getCourseCompletionPercentage(course.prerequisiteId, completedLessons);
@@ -31,23 +34,52 @@ export function isCssUnlocked(completedLessons = []) {
   return isCourseUnlocked('css', completedLessons);
 }
 
-export function isJsUnlocked(completedLessons = []) {
-  return isCourseUnlocked('javascript', completedLessons);
+export function isJsUnlocked() {
+  return false;
 }
 
-export function isReactUnlocked(completedLessons = []) {
-  return isCourseUnlocked('react', completedLessons);
+export function isReactUnlocked() {
+  return false;
 }
 
-export function isNodeUnlocked(completedLessons = []) {
-  return isCourseUnlocked('nodejs', completedLessons);
+export function isNodeUnlocked() {
+  return false;
 }
 
 export function getCourseUnlockInfo(courseId, completedLessons = []) {
   const course = getCourse(courseId);
-  if (!course || !course.prerequisiteId) {
+  if (!course) {
+    return {
+      isUnlocked: false,
+      isComingSoon: false,
+      requiredPercentage: 0,
+      currentPercentage: 0,
+      prerequisiteCourse: null,
+      completedPrereqCount: 0,
+      totalPrereqLessons: 0,
+      remainingCount: 0,
+      unlockRequirementText: 'Invalid course'
+    };
+  }
+
+  if (course.isComingSoon) {
+    return {
+      isUnlocked: false,
+      isComingSoon: true,
+      requiredPercentage: 0,
+      currentPercentage: 0,
+      prerequisiteCourse: null,
+      completedPrereqCount: 0,
+      totalPrereqLessons: 0,
+      remainingCount: 0,
+      unlockRequirementText: 'Coming Soon — This track is currently in development. Enhance your foundational skills in HTML5 and CSS3 first!'
+    };
+  }
+
+  if (!course.prerequisiteId) {
     return {
       isUnlocked: true,
+      isComingSoon: false,
       requiredPercentage: 0,
       currentPercentage: 100,
       prerequisiteCourse: null,
@@ -159,7 +191,7 @@ export function getAdjacentLessons(currentCourseId, currentLessonId) {
 export function getRecommendedLesson(state) {
   const completedLessons = state?.completedLessons || [];
 
-  for (const cid of COURSE_ORDER) {
+  for (const cid of ACTIVE_COURSE_IDS) {
     if (!isCourseUnlocked(cid, completedLessons)) continue;
     const course = getCourse(cid);
     const list = Object.values(course.lessons).sort((a, b) => a.lessonNumber - b.lessonNumber);

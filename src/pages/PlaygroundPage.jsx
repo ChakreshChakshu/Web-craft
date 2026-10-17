@@ -32,12 +32,12 @@ export const PlaygroundPage = () => {
 
           <div className="flex items-center gap-2 text-xs">
             {isCssUnlocked ? (
-              <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">
+              <span className="craft-badge-accent flex items-center gap-1.5 px-3 py-1 font-semibold">
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>HTML &amp; CSS Unlocked</span>
               </span>
             ) : (
-              <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-900">
+              <span className="craft-badge-neutral flex items-center gap-1.5 px-3 py-1 font-semibold">
                 <span>CSS Tab Locked (Finish HTML Modules 1-3)</span>
               </span>
             )}

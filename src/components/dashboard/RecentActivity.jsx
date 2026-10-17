@@ -1,10 +1,10 @@
 import React from 'react';
-import { CheckCircle2, Trophy, LockOpen, Clock, Activity } from 'lucide-react';
+import { CheckCircle2, Trophy, LockOpen, Activity } from 'lucide-react';
 
 export const RecentActivity = ({ activities }) => {
   if (!activities || activities.length === 0) {
     return (
-      <div className="p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-center space-y-2">
+      <div className="p-6 rounded-2xl craft-card text-center space-y-2">
         <Activity className="w-8 h-8 text-slate-300 dark:text-slate-600 mx-auto" />
         <h3 className="font-semibold text-slate-700 dark:text-slate-300 text-sm">
           No Recent Activity
@@ -25,7 +25,7 @@ export const RecentActivity = ({ activities }) => {
   };
 
   return (
-    <div className="p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm space-y-4">
+    <div className="p-6 rounded-2xl craft-card space-y-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Activity className="w-4 h-4 text-blue-600 dark:text-blue-400" />
@@ -46,13 +46,13 @@ export const RecentActivity = ({ activities }) => {
           >
             <div className="flex items-center gap-2.5 min-w-0">
               {item.type === 'css_unlocked' ? (
-                <LockOpen className="w-4 h-4 text-amber-500 flex-shrink-0" />
+                <LockOpen className="w-4 h-4 text-craft-flame flex-shrink-0" />
               ) : item.type === 'quiz_passed' ? (
-                <Trophy className="w-4 h-4 text-purple-500 flex-shrink-0" />
+                <Trophy className="w-4 h-4 text-craft-flame flex-shrink-0" />
               ) : item.type === 'exercise_passed' ? (
-                <CheckCircle2 className="w-4 h-4 text-blue-500 flex-shrink-0" />
+                <CheckCircle2 className="w-4 h-4 text-craft-flame flex-shrink-0" />
               ) : (
-                <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0" />
+                <CheckCircle2 className="w-4 h-4 text-craft-flame flex-shrink-0" />
               )}
               <span className="truncate font-medium text-slate-700 dark:text-slate-300">
                 {item.title}

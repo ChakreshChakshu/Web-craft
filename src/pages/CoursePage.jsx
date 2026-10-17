@@ -12,10 +12,6 @@ import {
   ArrowRight, 
   Clock,
   ShieldAlert,
-  ChevronDown,
-  ChevronRight,
-  Sparkles,
-  Layers,
   Play
 } from 'lucide-react';
 
@@ -45,6 +41,47 @@ export const CoursePage = () => {
     setSelectedModuleId('all');
   }, [validCourseId]);
 
+  if (course.isComingSoon) {
+    return (
+      <PageLayout>
+        <div className="max-w-xl mx-auto py-16 text-center space-y-6">
+          <div className="w-16 h-16 rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 mx-auto flex items-center justify-center shadow-sm">
+            <BookOpen className="w-8 h-8" />
+          </div>
+
+          <div className="space-y-2">
+            <span className="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/60 px-3 py-1 rounded-full border border-blue-200 dark:border-blue-900">
+              Track In Development
+            </span>
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white pt-2">
+              {course.title} is Coming Soon!
+            </h1>
+            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed max-w-md mx-auto">
+              We are currently focusing 100% on providing the best possible interactive learning experience for HTML5 structure and CSS3 modern layouts. JavaScript, React, and Node.js tracks will be released in an upcoming update!
+            </p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+            <Link
+              to="/learn/html"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-orange-600 hover:bg-orange-700 text-white text-xs sm:text-sm font-semibold transition-colors shadow-sm"
+            >
+              <span>Practice HTML5</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link
+              to="/learn/css"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-semibold transition-colors shadow-sm"
+            >
+              <span>Explore CSS3 Layouts</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </PageLayout>
+    );
+  }
+
   const colorStyles = {
     orange: {
       badgeBg: 'bg-orange-100 text-orange-600 dark:bg-orange-950 dark:text-orange-400',
@@ -54,32 +91,32 @@ export const CoursePage = () => {
       border: 'border-orange-200 dark:border-orange-800'
     },
     blue: {
-      badgeBg: 'bg-blue-100 text-blue-600 dark:bg-blue-950 dark:text-blue-400',
-      bar: 'bg-blue-600',
-      accentText: 'text-blue-600 dark:text-blue-400',
-      activeTab: 'bg-blue-600 text-white',
-      border: 'border-blue-200 dark:border-blue-800'
+      badgeBg: 'craft-badge-accent',
+      bar: 'bg-craft-flame',
+      accentText: 'text-craft-flame',
+      activeTab: 'bg-craft-flame text-white',
+      border: 'border-craft-flame/30'
     },
     yellow: {
-      badgeBg: 'bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-400',
-      bar: 'bg-amber-500',
-      accentText: 'text-amber-600 dark:text-amber-400',
-      activeTab: 'bg-amber-600 text-white',
-      border: 'border-amber-200 dark:border-amber-800'
+      badgeBg: 'craft-badge-neutral',
+      bar: 'bg-craft-flame',
+      accentText: 'text-craft-flame',
+      activeTab: 'bg-craft-flame text-white',
+      border: 'border-slate-300 dark:border-slate-700'
     },
     cyan: {
-      badgeBg: 'bg-cyan-100 text-cyan-700 dark:bg-cyan-950 dark:text-cyan-400',
-      bar: 'bg-cyan-500',
-      accentText: 'text-cyan-600 dark:text-cyan-400',
-      activeTab: 'bg-cyan-600 text-white',
-      border: 'border-cyan-200 dark:border-cyan-800'
+      badgeBg: 'craft-badge-accent',
+      bar: 'bg-craft-flame',
+      accentText: 'text-craft-flame',
+      activeTab: 'bg-craft-flame text-white',
+      border: 'border-craft-flame/30'
     },
     emerald: {
-      badgeBg: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-400',
-      bar: 'bg-emerald-500',
-      accentText: 'text-emerald-600 dark:text-emerald-400',
-      activeTab: 'bg-emerald-600 text-white',
-      border: 'border-emerald-200 dark:border-emerald-800'
+      badgeBg: 'craft-badge-accent',
+      bar: 'bg-craft-flame',
+      accentText: 'text-craft-flame',
+      activeTab: 'bg-craft-flame text-white',
+      border: 'border-craft-flame/30'
     }
   };
 
@@ -112,12 +149,12 @@ export const CoursePage = () => {
             </div>
 
             {isLocked ? (
-              <span className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-900">
-                <Lock className="w-4 h-4" />
+              <span className="craft-badge-neutral flex items-center gap-1.5 text-xs font-semibold px-3 py-1">
+                <Lock className="w-4 h-4 text-slate-400" />
                 Locked Stage
               </span>
             ) : (
-              <span className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">
+              <span className="craft-badge-accent flex items-center gap-1.5 text-xs font-semibold px-3 py-1">
                 <CheckCircle2 className="w-4 h-4" />
                 Active Curriculum
               </span>
@@ -148,33 +185,33 @@ export const CoursePage = () => {
 
         {/* Dynamic Prerequisite Lock Notice if course is locked */}
         {isLocked && unlockInfo && unlockInfo.prerequisiteCourse && (
-          <div className="p-6 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900 shadow-sm space-y-4">
-            <div className="flex items-center gap-2.5 text-amber-900 dark:text-amber-100 font-bold text-base">
-              <ShieldAlert className="w-5 h-5 text-amber-600" />
+          <div className="p-6 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 shadow-sm space-y-4">
+            <div className="flex items-center gap-2.5 text-slate-900 dark:text-white font-bold text-base">
+              <ShieldAlert className="w-5 h-5 text-craft-flame" />
               <span>Unlock Requirement: Complete at least 70% of {unlockInfo.prerequisiteCourse.title}</span>
             </div>
-            <p className="text-xs sm:text-sm text-amber-800 dark:text-amber-300 leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
               {unlockInfo.unlockRequirementText} You must reach 70% progress in {unlockInfo.prerequisiteCourse.title} before {course.title} lessons become accessible.
             </p>
-            <div className="p-4 bg-white/90 dark:bg-slate-900/90 rounded-xl border border-amber-200 dark:border-amber-900/60 text-xs space-y-2">
-              <div className="flex justify-between font-mono text-amber-900 dark:text-amber-200">
+            <div className="p-4 bg-white dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 text-xs space-y-2">
+              <div className="flex justify-between font-mono text-slate-800 dark:text-slate-200">
                 <span>{unlockInfo.prerequisiteCourse.title} Progress:</span>
                 <span>{unlockInfo.completedPrereqCount} / {unlockInfo.totalPrereqLessons} lessons ({unlockInfo.currentPercentage}% / 70% needed)</span>
               </div>
-              <div className="w-full h-2 rounded-full bg-amber-100 dark:bg-amber-950 overflow-hidden">
+              <div className="w-full h-2 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
                 <div
-                  className="h-full bg-amber-500 transition-all duration-500"
+                  className="h-full bg-craft-flame transition-all duration-500"
                   style={{ width: `${Math.min(100, Math.round((unlockInfo.currentPercentage / 70) * 100))}%` }}
                 />
               </div>
-              <div className="text-[11px] text-amber-700 dark:text-amber-400 font-mono">
+              <div className="text-[11px] text-craft-flame font-mono">
                 {unlockInfo.remainingCount > 0 ? `${unlockInfo.remainingCount} more lessons needed to unlock ${course.shortTitle}` : 'Ready to unlock!'}
               </div>
             </div>
             <div className="pt-1">
               <Link
                 to={`/learn/${unlockInfo.prerequisiteCourse.id}`}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold transition-colors shadow-sm"
+                className="craft-btn-primary inline-flex items-center gap-2 px-5 py-2.5 text-xs font-semibold shadow-sm"
               >
                 <span>Jump to {unlockInfo.prerequisiteCourse.title}</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -281,7 +318,7 @@ export const CoursePage = () => {
                       <div className="flex items-center gap-2 font-mono text-xs text-slate-500">
                         <span>{completedCount} / {mod.lessonIds.length} Finished</span>
                         {isModuleComplete ? (
-                          <CheckCircle2 className="w-5 h-5 text-emerald-500" />
+                          <CheckCircle2 className="w-5 h-5 text-craft-flame" />
                         ) : (
                           <Circle className="w-5 h-5 text-slate-300 dark:text-slate-600" />
                         )}
@@ -324,7 +361,7 @@ export const CoursePage = () => {
                         >
                           <div className="flex items-center gap-3 min-w-0 pr-2">
                             {isCompleted ? (
-                              <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0" />
+                              <CheckCircle2 className="w-4 h-4 text-craft-flame flex-shrink-0" />
                             ) : isLocked ? (
                               <Lock className="w-4 h-4 text-slate-300 dark:text-slate-600 flex-shrink-0" />
                             ) : (

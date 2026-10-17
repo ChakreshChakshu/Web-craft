@@ -14,8 +14,7 @@ import {
   X, 
   Lock, 
   ArrowLeft,
-  ArrowRight,
-  ShieldAlert
+  ArrowRight
 } from 'lucide-react';
 
 export const LessonPage = () => {
@@ -78,6 +77,48 @@ export const LessonPage = () => {
     );
   }
 
+  // Check if course is coming soon
+  if (course.isComingSoon) {
+    return (
+      <PageLayout>
+        <div className="max-w-xl mx-auto py-16 text-center space-y-6">
+          <div className="w-16 h-16 rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 mx-auto flex items-center justify-center shadow-sm">
+            <Lock className="w-8 h-8" />
+          </div>
+
+          <div className="space-y-2">
+            <span className="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/60 px-3 py-1 rounded-full border border-blue-200 dark:border-blue-900">
+              Track In Development
+            </span>
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white pt-2">
+              {course.title} is Coming Soon
+            </h1>
+            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed max-w-md mx-auto">
+              This track is currently disabled so students can focus on enhancing their skills in HTML5 Fundamentals and CSS3 Modern Layouts.
+            </p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+            <Link
+              to="/learn/html"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-orange-600 hover:bg-orange-700 text-white text-xs sm:text-sm font-semibold transition-colors shadow-sm"
+            >
+              <span>Practice HTML5</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link
+              to="/learn/css"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-semibold transition-colors shadow-sm"
+            >
+              <span>Explore CSS3 Layouts</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </PageLayout>
+    );
+  }
+
   // Check if course is locked
   const isLocked = checkUnlock ? !checkUnlock(validCourseId) : !isCourseUnlocked(validCourseId, state?.completedLessons || []);
   const unlockInfo = getCourseUnlockInfo(validCourseId, state?.completedLessons || []);
@@ -86,7 +127,7 @@ export const LessonPage = () => {
     return (
       <PageLayout>
         <div className="max-w-xl mx-auto py-16 text-center space-y-6">
-          <div className="w-16 h-16 rounded-2xl bg-amber-100 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 mx-auto flex items-center justify-center shadow-sm">
+          <div className="w-16 h-16 rounded-2xl bg-slate-200 dark:bg-slate-800 text-craft-flame mx-auto flex items-center justify-center shadow-sm">
             <Lock className="w-8 h-8" />
           </div>
 
@@ -106,7 +147,7 @@ export const LessonPage = () => {
             </div>
             <div className="w-full h-2 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
               <div
-                className="h-full bg-amber-500 transition-all duration-500"
+                className="h-full bg-craft-flame transition-all duration-500"
                 style={{ width: `${Math.min(100, Math.round((unlockInfo.currentPercentage / 70) * 100))}%` }}
               />
             </div>
@@ -115,7 +156,7 @@ export const LessonPage = () => {
           <div>
             <Link
               to={`/learn/${unlockInfo.prerequisiteCourse.id}`}
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold transition-colors shadow-sm"
+              className="craft-btn-primary px-6 py-2.5 text-sm"
             >
               <span>Continue {unlockInfo.prerequisiteCourse.title}</span>
               <ArrowRight className="w-4 h-4" />

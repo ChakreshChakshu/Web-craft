@@ -14,6 +14,8 @@ export const COURSES = {
     order: 1,
     prerequisiteId: null,
     unlockPercentageRequired: 0,
+    status: 'active',
+    isComingSoon: false,
     description: 'Learn modern semantic HTML5, accessible document architecture, multimedia elements, and forms from scratch.',
     color: 'orange',
     accentColor: '#ea580c',
@@ -35,6 +37,8 @@ export const COURSES = {
     order: 2,
     prerequisiteId: 'html',
     unlockPercentageRequired: 70,
+    status: 'active',
+    isComingSoon: false,
     description: 'Master Flexbox, CSS Grid, custom properties, animations, and responsive web design systems.',
     color: 'blue',
     accentColor: '#2563eb',
@@ -56,7 +60,9 @@ export const COURSES = {
     order: 3,
     prerequisiteId: 'css',
     unlockPercentageRequired: 70,
-    description: 'Master modern ES6+ syntax, closures, promises, async/await, functional array methods, and OOP patterns.',
+    status: 'coming_soon',
+    isComingSoon: true,
+    description: 'Master modern ES6+ syntax, closures, promises, async/await, functional array methods, and OOP patterns (Coming Soon).',
     color: 'yellow',
     accentColor: '#eab308',
     bgLight: 'bg-amber-50',
@@ -77,7 +83,9 @@ export const COURSES = {
     order: 4,
     prerequisiteId: 'javascript',
     unlockPercentageRequired: 70,
-    description: 'Build production-grade UIs using JSX, component state, custom hooks, context, memoization, and forms.',
+    status: 'coming_soon',
+    isComingSoon: true,
+    description: 'Build production-grade UIs using JSX, component state, custom hooks, context, memoization, and forms (Coming Soon).',
     color: 'cyan',
     accentColor: '#06b6d4',
     bgLight: 'bg-cyan-50',
@@ -98,7 +106,9 @@ export const COURSES = {
     order: 5,
     prerequisiteId: 'react',
     unlockPercentageRequired: 70,
-    description: 'Engineer high-throughput servers with the V8 event loop, streams, Express.js REST APIs, JWT auth, and production tooling.',
+    status: 'coming_soon',
+    isComingSoon: true,
+    description: 'Engineer high-throughput servers with the V8 event loop, streams, Express.js REST APIs, JWT auth, and production tooling (Coming Soon).',
     color: 'emerald',
     accentColor: '#059669',
     bgLight: 'bg-emerald-50',
@@ -112,9 +122,13 @@ export const COURSES = {
   }
 };
 
+export const ACTIVE_COURSE_IDS = ['html', 'css'];
+export const COMING_SOON_COURSE_IDS = ['javascript', 'react', 'nodejs'];
+
 export const COURSE_ORDER = ['html', 'css', 'javascript', 'react', 'nodejs'];
 
 export const COURSE_LIST = COURSE_ORDER.map((id) => COURSES[id]);
+export const ACTIVE_COURSE_LIST = ACTIVE_COURSE_IDS.map((id) => COURSES[id]);
 
 export function getCourse(courseId) {
   return COURSES[courseId] || COURSES.html;
@@ -122,6 +136,10 @@ export function getCourse(courseId) {
 
 export function isValidCourseId(courseId) {
   return Boolean(COURSES[courseId]);
+}
+
+export function isCourseActive(courseId) {
+  return ACTIVE_COURSE_IDS.includes(courseId);
 }
 
 export function getCourseModules(courseId) {

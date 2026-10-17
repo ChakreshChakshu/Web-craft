@@ -8,15 +8,12 @@ import {
   AlertTriangle, 
   CheckCircle2, 
   XCircle,
-  Layers, 
   Globe,
   Terminal,
   Cpu,
   BookOpenCheck,
   Check,
-  X,
-  Sparkles,
-  Table
+  X
 } from 'lucide-react';
 import { PlaygroundLayout } from '../playground/PlaygroundLayout';
 
@@ -89,7 +86,7 @@ export const LessonContent = ({ lesson, module }) => {
           {lesson.howItWorks && (
             <div className="p-5 rounded-2xl bg-slate-100/70 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 space-y-2.5">
               <div className="flex items-center gap-2 text-slate-800 dark:text-slate-200 font-bold text-sm">
-                <Cpu className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+                <Cpu className="w-4 h-4 text-craft-flame" />
                 <span>How Browsers Process It</span>
               </div>
               <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
@@ -104,14 +101,14 @@ export const LessonContent = ({ lesson, module }) => {
       {(lesson.whenToUse || lesson.whenNotToUse) && (
         <section className="space-y-3">
           <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <span className="w-1.5 h-5 bg-blue-600 rounded-full inline-block" />
+            <span className="w-1.5 h-5 bg-craft-flame rounded-full inline-block" />
             Decision Guide: When to Use & When to Avoid
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {lesson.whenToUse && lesson.whenToUse.length > 0 && (
-              <div className="p-4 rounded-xl bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-900/60 space-y-2">
-                <div className="flex items-center gap-1.5 text-xs font-bold text-emerald-700 dark:text-emerald-400">
+              <div className="p-4 rounded-xl bg-craft-flame/10 border border-craft-flame/30 space-y-2">
+                <div className="flex items-center gap-1.5 text-xs font-bold text-craft-flame">
                   <Check className="w-4 h-4" />
                   <span>Use in these scenarios:</span>
                 </div>
@@ -124,9 +121,9 @@ export const LessonContent = ({ lesson, module }) => {
             )}
 
             {lesson.whenNotToUse && lesson.whenNotToUse.length > 0 && (
-              <div className="p-4 rounded-xl bg-red-50/50 dark:bg-red-950/20 border border-red-200 dark:border-red-900/60 space-y-2">
-                <div className="flex items-center gap-1.5 text-xs font-bold text-red-700 dark:text-red-400">
-                  <X className="w-4 h-4" />
+              <div className="p-4 rounded-xl bg-slate-100 dark:bg-slate-800/60 border border-slate-300 dark:border-slate-700 space-y-2">
+                <div className="flex items-center gap-1.5 text-xs font-bold text-slate-700 dark:text-slate-300">
+                  <X className="w-4 h-4 text-craft-flame" />
                   <span>Avoid or use alternatives when:</span>
                 </div>
                 <ul className="space-y-1.5 text-xs text-slate-700 dark:text-slate-300 pl-4 list-disc">
@@ -165,7 +162,7 @@ export const LessonContent = ({ lesson, module }) => {
                       <td className="py-2.5 px-3 font-mono font-bold text-blue-600 dark:text-blue-400">
                         {attr.name}
                         {attr.required && (
-                          <span className="ml-1 text-[10px] text-red-500 uppercase font-mono">
+                          <span className="ml-1 text-[10px] text-craft-flame uppercase font-mono font-bold">
                             *req
                           </span>
                         )}
@@ -206,23 +203,23 @@ export const LessonContent = ({ lesson, module }) => {
                 )}
                 <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-200 dark:divide-slate-800">
                   {/* Correct */}
-                  <div className="p-4 space-y-2 bg-emerald-50/30 dark:bg-emerald-950/10">
-                    <div className="flex items-center gap-1.5 text-xs font-bold text-emerald-700 dark:text-emerald-400">
+                  <div className="p-4 space-y-2 bg-craft-flame/5">
+                    <div className="flex items-center gap-1.5 text-xs font-bold text-craft-flame">
                       <CheckCircle2 className="w-4 h-4" />
                       <span>Recommended (Semantic & Standard)</span>
                     </div>
-                    <pre className="p-3 rounded bg-slate-950 text-emerald-300 text-xs font-mono overflow-x-auto">
+                    <pre className="p-3 rounded bg-slate-950 text-craft-cream text-xs font-mono overflow-x-auto border-l-2 border-craft-flame">
                       <code>{comp.correct}</code>
                     </pre>
                   </div>
 
                   {/* Incorrect */}
-                  <div className="p-4 space-y-2 bg-red-50/30 dark:bg-red-950/10">
-                    <div className="flex items-center gap-1.5 text-xs font-bold text-red-700 dark:text-red-400">
-                      <XCircle className="w-4 h-4" />
+                  <div className="p-4 space-y-2 bg-slate-100/50 dark:bg-slate-900/30">
+                    <div className="flex items-center gap-1.5 text-xs font-bold text-slate-600 dark:text-slate-400">
+                      <XCircle className="w-4 h-4 text-craft-charcoal dark:text-craft-sand" />
                       <span>Avoid (Anti-Pattern)</span>
                     </div>
-                    <pre className="p-3 rounded bg-slate-950 text-red-300 text-xs font-mono overflow-x-auto">
+                    <pre className="p-3 rounded bg-slate-950 text-slate-400 text-xs font-mono overflow-x-auto border-l-2 border-slate-700">
                       <code>{comp.incorrect}</code>
                     </pre>
                   </div>
@@ -242,7 +239,7 @@ export const LessonContent = ({ lesson, module }) => {
         {lesson.sections.map((section) => (
           <section key={section.id} id={section.id} className="space-y-4">
             <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-2.5">
-              <span className="w-1.5 h-6 bg-blue-600 rounded-full inline-block" />
+              <span className="w-1.5 h-6 bg-craft-flame rounded-full inline-block" />
               {section.heading}
             </h2>
 
@@ -255,10 +252,10 @@ export const LessonContent = ({ lesson, module }) => {
             {section.syntax && (
               <div className="my-4 p-4 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 font-mono text-xs sm:text-sm">
                 <div className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1 flex items-center gap-1.5">
-                  <Terminal className="w-3.5 h-3.5 text-blue-500" />
+                  <Terminal className="w-3.5 h-3.5 text-craft-flame" />
                   <span>Syntax Pattern</span>
                 </div>
-                <div className="text-blue-900 dark:text-blue-300 whitespace-pre-wrap">
+                <div className="text-slate-900 dark:text-craft-cream whitespace-pre-wrap">
                   {section.syntax}
                 </div>
               </div>
@@ -276,10 +273,10 @@ export const LessonContent = ({ lesson, module }) => {
 
             {/* Expected Output Note */}
             {section.expectedOutputNote && (
-              <div className="p-3.5 rounded-lg bg-emerald-50/70 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900 text-xs sm:text-sm text-emerald-900 dark:text-emerald-300 flex items-start gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 mt-0.5 flex-shrink-0" />
+              <div className="p-3.5 rounded-lg bg-craft-flame/10 border border-craft-flame/30 text-xs sm:text-sm text-slate-900 dark:text-craft-cream flex items-start gap-2.5">
+                <CheckCircle2 className="w-4 h-4 text-craft-flame mt-0.5 flex-shrink-0" />
                 <div>
-                  <strong className="font-semibold block mb-0.5">Expected Output:</strong>
+                  <strong className="font-semibold block mb-0.5 text-craft-flame">Expected Output:</strong>
                   {section.expectedOutputNote}
                 </div>
               </div>
@@ -288,7 +285,7 @@ export const LessonContent = ({ lesson, module }) => {
             {/* Real World Usage */}
             {section.realWorldUsage && (
               <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs sm:text-sm flex items-start gap-2.5">
-                <Globe className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
+                <Globe className="w-4 h-4 text-craft-flame mt-0.5 flex-shrink-0" />
                 <div>
                   <strong className="font-semibold text-slate-800 dark:text-slate-200 block mb-0.5">
                     Real-World Context:
@@ -303,8 +300,8 @@ export const LessonContent = ({ lesson, module }) => {
             {/* Best practices & common mistakes grids */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
               {section.bestPractices && section.bestPractices.length > 0 && (
-                <div className="p-4 rounded-xl bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-900/60 space-y-2">
-                  <div className="flex items-center gap-1.5 text-xs font-bold text-emerald-700 dark:text-emerald-400">
+                <div className="p-4 rounded-xl bg-craft-flame/10 border border-craft-flame/30 space-y-2">
+                  <div className="flex items-center gap-1.5 text-xs font-bold text-craft-flame">
                     <CheckCircle2 className="w-4 h-4" />
                     <span>Best Practices</span>
                   </div>
@@ -317,9 +314,9 @@ export const LessonContent = ({ lesson, module }) => {
               )}
 
               {section.commonMistakes && section.commonMistakes.length > 0 && (
-                <div className="p-4 rounded-xl bg-amber-50/50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/60 space-y-2">
-                  <div className="flex items-center gap-1.5 text-xs font-bold text-amber-700 dark:text-amber-400">
-                    <AlertTriangle className="w-4 h-4" />
+                <div className="p-4 rounded-xl bg-slate-100 dark:bg-slate-800/60 border border-slate-300 dark:border-slate-700 space-y-2">
+                  <div className="flex items-center gap-1.5 text-xs font-bold text-slate-700 dark:text-slate-300">
+                    <AlertTriangle className="w-4 h-4 text-craft-flame" />
                     <span>Common Pitfalls</span>
                   </div>
                   <ul className="space-y-1.5 text-xs text-slate-700 dark:text-slate-300 pl-4 list-disc">

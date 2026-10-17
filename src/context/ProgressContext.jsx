@@ -6,7 +6,6 @@ import {
   isReactUnlocked as checkReactUnlocked,
   isNodeUnlocked as checkNodeUnlocked,
   isCourseUnlocked as checkCourseUnlocked,
-  getCourseUnlockInfo,
   calculateCourseProgress 
 } from '../lib/progress';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
@@ -149,18 +148,8 @@ export const ProgressProvider = ({ children }) => {
     setState((prev) => {
       if (prev.completedLessons.includes(lessonId)) return prev;
       const newCompleted = [...prev.completedLessons, lessonId];
-      
       const newCssUnlocked = checkCssUnlocked(newCompleted);
       const wasCssUnlockedBefore = checkCssUnlocked(prev.completedLessons);
-
-      const newJsUnlocked = checkJsUnlocked(newCompleted);
-      const wasJsUnlockedBefore = checkJsUnlocked(prev.completedLessons);
-
-      const newReactUnlocked = checkReactUnlocked(newCompleted);
-      const wasReactUnlockedBefore = checkReactUnlocked(prev.completedLessons);
-
-      const newNodeUnlocked = checkNodeUnlocked(newCompleted);
-      const wasNodeUnlockedBefore = checkNodeUnlocked(prev.completedLessons);
 
       const unlockActivities = [];
       if (newCssUnlocked && !wasCssUnlockedBefore) {
@@ -168,30 +157,6 @@ export const ProgressProvider = ({ children }) => {
           id: `act-css-${Date.now()}`,
           type: 'course_unlocked',
           title: 'Unlocked CSS3 & Modern Layout Course!',
-          timestamp: Date.now(),
-        });
-      }
-      if (newJsUnlocked && !wasJsUnlockedBefore) {
-        unlockActivities.push({
-          id: `act-js-${Date.now()}`,
-          type: 'course_unlocked',
-          title: 'Unlocked JavaScript (ES6+) Mastery Course!',
-          timestamp: Date.now(),
-        });
-      }
-      if (newReactUnlocked && !wasReactUnlockedBefore) {
-        unlockActivities.push({
-          id: `act-react-${Date.now()}`,
-          type: 'course_unlocked',
-          title: 'Unlocked React.js Components Course!',
-          timestamp: Date.now(),
-        });
-      }
-      if (newNodeUnlocked && !wasNodeUnlockedBefore) {
-        unlockActivities.push({
-          id: `act-node-${Date.now()}`,
-          type: 'course_unlocked',
-          title: 'Unlocked Node.js Backend Architecture Course!',
           timestamp: Date.now(),
         });
       }

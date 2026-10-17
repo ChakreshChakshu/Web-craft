@@ -1,4 +1,4 @@
-﻿export const quizzes = [
+export const quizzes = [
   {
     id: 'quiz-html-mod-1',
     courseId: 'html',
@@ -206,9 +206,240 @@
         explanation: 'type="email" optimizes the on-screen keyboard on smartphones and provides built-in browser format validation.'
       }
     ]
+  },
+  {
+    id: 'quiz-css-mod-1',
+    courseId: 'css',
+    moduleId: 'css-module-1',
+    title: 'CSS Selectors & Specificity Assessment',
+    description: 'Test your understanding of the CSS cascade, specificity weight calculations, inheritance, and selector types.',
+    passingScorePercent: 70,
+    questions: [
+      {
+        id: 'q-css-1',
+        question: 'Which of the following selectors carries the highest specificity weight in CSS?',
+        options: [
+          'header nav a',
+          '.nav-link:hover',
+          '#primary-navigation',
+          'div.menu > ul > li'
+        ],
+        correctIndex: 2,
+        explanation: 'An ID selector (#id) has a specificity weight of (1, 0, 0), beating any combination of classes, pseudo-classes, or tag elements.'
+      },
+      {
+        id: 'q-css-2',
+        question: 'What does the universal selector * match in a stylesheet?',
+        options: [
+          'Only the root <html> element',
+          'Every single element in the DOM tree',
+          'Only elements that have no class applied',
+          'Only direct children of the <body>'
+        ],
+        correctIndex: 1,
+        explanation: 'The * universal selector matches all elements of any type in the document.'
+      },
+      {
+        id: 'q-css-3',
+        question: 'Which CSS property is inherited by default from parent elements to child elements?',
+        options: [
+          'padding',
+          'border',
+          'color',
+          'margin'
+        ],
+        correctIndex: 2,
+        explanation: 'Typography and text color properties (such as color, font-family, font-size) naturally cascade and inherit, whereas box-model dimensions do not.'
+      }
+    ]
+  },
+  {
+    id: 'quiz-css-mod-2',
+    courseId: 'css',
+    moduleId: 'css-module-2',
+    title: 'CSS Box Model & Positioning Assessment',
+    description: 'Verify your mastery over margins, padding, box-sizing: border-box, and standard CSS position schemes.',
+    passingScorePercent: 70,
+    questions: [
+      {
+        id: 'q-css-2-1',
+        question: 'When an element has box-sizing: border-box, what elements are included inside the declared width and height?',
+        options: [
+          'Only the content box',
+          'Content, padding, and border',
+          'Content, padding, border, and margin',
+          'Padding and margin only'
+        ],
+        correctIndex: 1,
+        explanation: 'border-box includes the element content, padding, and border within the specified width/height dimensions. Margins remain external.'
+      },
+      {
+        id: 'q-css-2-2',
+        question: 'What happens when you declare position: absolute on an element without any positioned ancestor?',
+        options: [
+          'The element is hidden from display',
+          'The element positions itself relative to the initial containing block (viewport/html)',
+          'The element behaves identical to position: static',
+          'The element centers automatically'
+        ],
+        correctIndex: 1,
+        explanation: 'position: absolute searches up the DOM tree for the nearest ancestor with a position other than static; if none exists, it positions relative to the viewport/document.'
+      },
+      {
+        id: 'q-css-2-3',
+        question: 'Which position value acts like relative until a scroll threshold is met, then behaves like fixed?',
+        options: [
+          'position: sticky',
+          'position: static',
+          'position: absolute',
+          'position: dynamic'
+        ],
+        correctIndex: 0,
+        explanation: 'position: sticky toggles between relative and fixed positioning based on the user scroll offset inside its parent scrolling container.'
+      }
+    ]
+  },
+  {
+    id: 'quiz-css-mod-3',
+    courseId: 'css',
+    moduleId: 'css-module-3',
+    title: 'Flexbox Layout Mastery Assessment',
+    description: 'Demonstrate your command of the Flexbox axes, alignment properties, and flex item distribution.',
+    passingScorePercent: 75,
+    questions: [
+      {
+        id: 'q-css-3-1',
+        question: 'In a default flex container (flex-direction: row), which property aligns flex items along the vertical cross axis?',
+        options: [
+          'justify-content',
+          'align-items',
+          'flex-wrap',
+          'align-content'
+        ],
+        correctIndex: 1,
+        explanation: 'justify-content controls alignment along the main axis (horizontal in row mode), while align-items governs alignment along the cross axis (vertical in row mode).'
+      },
+      {
+        id: 'q-css-3-2',
+        question: 'What is the shorthand syntax flex: 1 1 auto equivalent to?',
+        options: [
+          'flex-grow: 1, flex-shrink: 1, flex-basis: auto',
+          'flex-order: 1, flex-direction: 1, flex-wrap: auto',
+          'flex-gap: 1px, flex-margin: 1px, flex-width: auto',
+          'flex-basis: 1, flex-grow: 1, flex-align: auto'
+        ],
+        correctIndex: 0,
+        explanation: 'The flex shorthand represents flex-grow, flex-shrink, and flex-basis in order.'
+      },
+      {
+        id: 'q-css-3-3',
+        question: 'Which property prevents flex items from shrinking below their content size when space is restricted?',
+        options: [
+          'flex-shrink: 0',
+          'flex-grow: 0',
+          'flex-basis: 0',
+          'flex-wrap: nowrap'
+        ],
+        correctIndex: 0,
+        explanation: 'Setting flex-shrink: 0 ensures an item retains its declared or intrinsic width and refuses to compress.'
+      }
+    ]
+  },
+  {
+    id: 'quiz-css-mod-4',
+    courseId: 'css',
+    moduleId: 'css-module-4',
+    title: 'CSS Grid Architecture Assessment',
+    description: 'Test your understanding of two-dimensional CSS Grid layouts, fractional units, and responsive templates.',
+    passingScorePercent: 75,
+    questions: [
+      {
+        id: 'q-css-4-1',
+        question: 'What is the primary difference between CSS Grid and Flexbox?',
+        options: [
+          'Grid is only for typography while Flexbox is for layout',
+          'Grid is inherently two-dimensional (rows AND columns simultaneously), while Flexbox is one-dimensional (row OR column)',
+          'Flexbox does not support the gap property',
+          'Grid cannot be nested inside another Grid'
+        ],
+        correctIndex: 1,
+        explanation: 'Grid is designed for two-dimensional layouts where alignment occurs across rows and columns simultaneously. Flexbox excels at one-dimensional linear streams.'
+      },
+      {
+        id: 'q-css-4-2',
+        question: 'What does the fr unit represent in CSS Grid track definitions?',
+        options: [
+          'Frame rate per second',
+          'Fixed resolution units measured in physical millimeters',
+          'A fraction of the available free space in the grid container',
+          'Font-relative ratio calculated from rem units'
+        ],
+        correctIndex: 2,
+        explanation: 'The fr unit represents a fraction of the unused free space remaining in the grid container after fixed tracks are allocated.'
+      },
+      {
+        id: 'q-css-4-3',
+        question: 'What does grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) achieve?',
+        options: [
+          'Creates exactly 200 columns',
+          'Creates a fluid responsive grid where columns automatically wrap and fill available space without media queries',
+          'Limits the grid width to 200px maximum',
+          'Centers a single column in the screen'
+        ],
+        correctIndex: 1,
+        explanation: 'repeat(auto-fit, minmax(200px, 1fr)) is the classic responsive grid pattern: columns shrink to 200px, wrap when needed, and stretch evenly to fill remaining space.'
+      }
+    ]
+  },
+  {
+    id: 'quiz-css-mod-5',
+    courseId: 'css',
+    moduleId: 'css-module-7',
+    title: 'Responsive Web Design & Units Assessment',
+    description: 'Demonstrate your knowledge of viewport meta tags, media query breakpoints, and modern responsive CSS functions.',
+    passingScorePercent: 70,
+    questions: [
+      {
+        id: 'q-css-5-1',
+        question: 'Why is <meta name="viewport" content="width=device-width, initial-scale=1.0"> required for responsive CSS?',
+        options: [
+          'It tells the browser to download mobile stylesheet files',
+          'It prevents mobile browsers from rendering at desktop 980px zoom and matches layout width to screen pixels',
+          'It enables CSS Flexbox on iOS devices',
+          'It speeds up JavaScript execution on mobile'
+        ],
+        correctIndex: 1,
+        explanation: 'Without the viewport meta tag, mobile browsers default to rendering pages in a desktop virtual viewport (typically 980px wide) and scaling it down.'
+      },
+      {
+        id: 'q-css-5-2',
+        question: 'What is the advantage of using rem units over px for typography and spacing?',
+        options: [
+          'rem units render faster on GPU',
+          'rem units scale respect user browser font size preferences for accessibility',
+          'rem units cannot be overridden by CSS',
+          'rem units work only inside media queries'
+        ],
+        correctIndex: 1,
+        explanation: 'rem units are relative to the root font size. If a visually impaired user increases their browser default font size from 16px to 24px, rem-based layouts scale proportionally.'
+      },
+      {
+        id: 'q-css-5-3',
+        question: 'What does the CSS function clamp(1rem, 2.5vw, 2.5rem) calculate?',
+        options: [
+          'It produces an animated transition between 1rem and 2.5rem',
+          'It clamps the value between a minimum of 1rem, a preferred fluid scale of 2.5vw, and a maximum of 2.5rem',
+          'It averages the three values together',
+          'It selects the smallest value among the three'
+        ],
+        correctIndex: 1,
+        explanation: 'clamp(min, preferred, max) provides fluid responsive sizing that scales dynamically with viewport width while respecting strict minimum and maximum boundaries.'
+      }
+    ]
   }
 ];
 
 export function getQuiz(quizId) {
   return quizzes.find((q) => q.id === quizId);
 }
+

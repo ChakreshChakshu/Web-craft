@@ -25,7 +25,7 @@ export const CodeEditorPanel = ({
         className="flex flex-col items-center justify-center p-8 text-center bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-b-lg"
         style={{ minHeight }}
       >
-        <div className="w-12 h-12 rounded-full bg-amber-100 dark:bg-amber-950 flex items-center justify-center text-amber-600 mb-3">
+        <div className="w-12 h-12 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-slate-500 dark:text-slate-400 mb-3">
           <Lock className="w-6 h-6" />
         </div>
         <h3 className="font-semibold text-slate-800 dark:text-slate-200 text-sm mb-1">

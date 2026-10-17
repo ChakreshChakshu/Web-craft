@@ -51,7 +51,7 @@ export const LessonNavigation = ({
         className={`px-5 py-2.5 rounded-lg text-xs sm:text-sm font-medium flex items-center gap-2 transition-all shadow-sm ${
           isCompleted
             ? 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200'
-            : 'bg-emerald-600 hover:bg-emerald-700 text-white'
+            : 'craft-btn-primary'
         }`}
       >
         <CheckCircle2 className="w-4 h-4" />
@@ -76,7 +76,7 @@ export const LessonNavigation = ({
           quizId && (
             <Link
               to={`/practice`}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-medium transition-all shadow-sm"
+              className="craft-btn-primary px-4 py-2.5 text-xs sm:text-sm"
             >
               <span>Practice Exercises</span>
               <ArrowRight className="w-4 h-4" />

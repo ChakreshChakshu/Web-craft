@@ -4,12 +4,11 @@ import { CodeEditorPanel } from './CodeEditorPanel';
 import { HtmlPreview } from './HtmlPreview';
 import { useProgress } from '../../hooks/useProgress';
 import { INITIAL_HTML_PLAYGROUND, INITIAL_CSS_PLAYGROUND, CSS_UNLOCK_REQUIREMENT_DESCRIPTION } from '../../lib/constants';
-import { Sparkles, Maximize2, Minimize2, Eye, Code } from 'lucide-react';
+import { Eye, Code } from 'lucide-react';
 
 export const PlaygroundLayout = ({
   initialHtml,
   initialCss,
-  readOnly = false,
   className = '',
   minEditorHeight = '420px'
 }) => {
@@ -47,6 +46,13 @@ export const PlaygroundLayout = ({
     navigator.clipboard.writeText(codeToCopy);
   };
 
+  const handleSelectPreset = (preset) => {
+    setHtmlCode(preset.html);
+    setCssCode(preset.css);
+    setApplyCss(true);
+    setRefreshTrigger((prev) => prev + 1);
+  };
+
   return (
     <div className={`flex flex-col gap-4 ${className}`}>
       {/* Mobile view toggle switcher: Code vs Preview */}
@@ -81,7 +87,7 @@ export const PlaygroundLayout = ({
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-stretch">
         
         {/* Editor Panel Column */}
-        <div className={`flex flex-col border border-slate-200 dark:border-slate-800 rounded-lg shadow-sm bg-white dark:bg-slate-900 ${
+        <div className={`flex flex-col craft-card rounded-xl overflow-hidden ${
           mobileView === 'preview' ? 'hidden lg:flex' : 'flex'
         }`}>
           <PlaygroundToolbar
@@ -93,6 +99,7 @@ export const PlaygroundLayout = ({
             onRun={handleRun}
             onReset={handleReset}
             onCopy={handleCopy}
+            onSelectPreset={handleSelectPreset}
           />
 
           <div className="flex-1 min-h-[380px]">

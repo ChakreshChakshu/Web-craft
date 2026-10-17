@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { X, Mail, Lock, User, LogIn, UserPlus, AlertCircle, CheckCircle, Cloud } from 'lucide-react';
+import { X, Mail, Lock, User, LogIn, UserPlus, AlertCircle, CheckCircle, Cloud, Sparkles } from 'lucide-react';
 
 export const AuthModal = ({ isOpen, onClose }) => {
-  const { signIn, signUp, signInWithOAuth, isConfigured } = useAuth();
+  const { signIn, signUp, signInWithOAuth, signInAsGuest, isConfigured } = useAuth();
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -93,12 +93,12 @@ export const AuthModal = ({ isOpen, onClose }) => {
 
         {/* Unconfigured Warning Alert */}
         {!isConfigured && (
-          <div className="mx-6 mt-6 p-4 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-amber-800 dark:text-amber-200 text-xs flex gap-3">
-            <AlertCircle className="w-5 h-5 shrink-0 text-amber-600 dark:text-amber-400" />
+          <div className="mx-6 mt-6 p-4 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs flex gap-3">
+            <AlertCircle className="w-5 h-5 shrink-0 text-craft-flame" />
             <div>
               <p className="font-semibold mb-1">Supabase Credentials Required</p>
-              <p className="text-amber-700 dark:text-amber-300">
-                To enable live cloud authentication and database storage, set <code className="bg-amber-100 dark:bg-amber-900/60 px-1 py-0.5 rounded">VITE_SUPABASE_URL</code> and <code className="bg-amber-100 dark:bg-amber-900/60 px-1 py-0.5 rounded">VITE_SUPABASE_ANON_KEY</code> in your <code className="font-mono">.env</code> file.
+              <p className="text-slate-600 dark:text-slate-400">
+                To enable live cloud authentication and database storage, set <code className="bg-slate-200 dark:bg-slate-800 px-1 py-0.5 rounded text-craft-flame">VITE_SUPABASE_URL</code> and <code className="bg-slate-200 dark:bg-slate-800 px-1 py-0.5 rounded text-craft-flame">VITE_SUPABASE_ANON_KEY</code> in your <code className="font-mono">.env</code> file.
               </p>
             </div>
           </div>
@@ -111,7 +111,7 @@ export const AuthModal = ({ isOpen, onClose }) => {
             onClick={() => { setIsSignUp(false); setError(null); }}
             className={`flex-1 pb-3 text-sm font-semibold border-b-2 transition-colors ${
               !isSignUp
-                ? 'border-blue-600 text-blue-600 dark:text-blue-400'
+                ? 'border-craft-flame text-craft-flame'
                 : 'border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
             }`}
           >
@@ -122,7 +122,7 @@ export const AuthModal = ({ isOpen, onClose }) => {
             onClick={() => { setIsSignUp(true); setError(null); }}
             className={`flex-1 pb-3 text-sm font-semibold border-b-2 transition-colors ${
               isSignUp
-                ? 'border-blue-600 text-blue-600 dark:text-blue-400'
+                ? 'border-craft-flame text-craft-flame'
                 : 'border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
             }`}
           >
@@ -133,15 +133,15 @@ export const AuthModal = ({ isOpen, onClose }) => {
         {/* Form Body */}
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
           {error && (
-            <div className="p-3 rounded-lg bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 text-xs flex items-center gap-2">
-              <AlertCircle className="w-4 h-4 shrink-0" />
+            <div className="p-3 rounded-lg bg-craft-flame/10 border border-craft-flame/30 text-slate-900 dark:text-craft-cream text-xs flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 shrink-0 text-craft-flame" />
               <span>{error}</span>
             </div>
           )}
 
           {successMessage && (
-            <div className="p-3 rounded-lg bg-green-50 dark:bg-green-950/40 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-300 text-xs flex items-center gap-2">
-              <CheckCircle className="w-4 h-4 shrink-0" />
+            <div className="p-3 rounded-lg bg-craft-flame/10 border border-craft-flame/30 text-slate-900 dark:text-craft-cream text-xs flex items-center gap-2">
+              <CheckCircle className="w-4 h-4 shrink-0 text-craft-flame" />
               <span>{successMessage}</span>
             </div>
           )}
@@ -217,6 +217,18 @@ export const AuthModal = ({ isOpen, onClose }) => {
                 Sign In
               </>
             )}
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              signInAsGuest();
+              onClose();
+            }}
+            className="w-full py-2 px-3 rounded-lg border border-dashed border-blue-400 dark:border-blue-700 bg-blue-50/50 dark:bg-blue-950/20 text-blue-600 dark:text-blue-400 hover:bg-blue-100/50 dark:hover:bg-blue-900/30 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors"
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>Instant Guest Student Access</span>
           </button>
 
           {/* Social OAuth */}
