@@ -355,15 +355,9 @@ export const AppHeader = () => {
                         <span className="text-sm font-semibold text-slate-800 dark:text-slate-200 truncate">
                           {displayName}
                         </span>
-                        {user.isGuest ? (
-                          <span className="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-[#403D39]/40 text-[#CCC5B9] border border-[#403D39] shrink-0">
-                            Guest
-                          </span>
-                        ) : (
-                          <span className="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-[#EB5E28]/15 text-[#EB5E28] border border-[#EB5E28]/30 shrink-0">
-                            Student
-                          </span>
-                        )}
+                        <span className="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-[#EB5E28]/15 text-[#EB5E28] border border-[#EB5E28]/30 shrink-0">
+                          Student
+                        </span>
                       </div>
                       <div className="text-xs text-slate-500 truncate font-mono mt-0.5">
                         {user.email}

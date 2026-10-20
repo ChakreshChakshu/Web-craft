@@ -8,9 +8,7 @@ import {
   Lock, 
   LogIn, 
   AlertCircle, 
-  Sparkles, 
   CheckCircle2, 
-  ArrowRight,
   Sun,
   Moon,
   GraduationCap,
@@ -18,7 +16,7 @@ import {
 } from 'lucide-react';
 
 export const LoginPage = () => {
-  const { user, signIn, signInWithOAuth, signInAsGuest, isConfigured } = useAuth();
+  const { user, signIn, signInWithOAuth, isConfigured } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
@@ -69,12 +67,6 @@ export const LoginPage = () => {
       setError(msg || `Failed to sign in with ${provider}`);
       setLoading(false);
     }
-  };
-
-  const handleGuestLogin = () => {
-    setError(null);
-    signInAsGuest('Student Learner');
-    navigate(from, { replace: true });
   };
 
   return (
@@ -166,39 +158,6 @@ export const LoginPage = () => {
               <div className="flex-1 leading-normal">{error}</div>
             </div>
           )}
-
-          {/* Quick 1-Click Guest Trial Button */}
-          <div className="p-4 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-900 dark:to-indigo-950/40 border border-blue-200/80 dark:border-blue-900/60 space-y-2.5">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold text-blue-900 dark:text-blue-300 flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
-                Want Instant Access?
-              </span>
-              <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-blue-600 text-white shadow-xs">
-                No Signup
-              </span>
-            </div>
-            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-              Explore lessons, quizzes, and live exercises immediately as a guest learner without needing an email verification link.
-            </p>
-            <button
-              type="button"
-              onClick={handleGuestLogin}
-              className="w-full py-2 px-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs transition-colors flex items-center justify-center gap-2 shadow-sm"
-            >
-              <span>Continue as Guest Learner</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </button>
-          </div>
-
-          <div className="relative text-center">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-slate-200 dark:border-slate-800" />
-            </div>
-            <span className="relative bg-slate-50 dark:bg-slate-950 px-3 text-xs text-slate-500 font-medium">
-              or sign in with email
-            </span>
-          </div>
 
           {/* Email / Password Form */}
           <form onSubmit={handleSubmit} className="space-y-4">

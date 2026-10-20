@@ -1,8 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 
-const GUEST_STORAGE_KEY = 'webcraft_guest_user';
-
 export const AuthContext = createContext({
   user: null,
   session: null,
@@ -13,7 +11,6 @@ export const AuthContext = createContext({
   signIn: async () => {},
   signOut: async () => {},
   signInWithOAuth: async () => {},
-  signInAsGuest: () => {},
   updateProfile: async () => {},
   uploadAvatar: async () => {},
 });
@@ -50,6 +47,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     let isMounted = true;
+    localStorage.removeItem('webcraft_guest_user');
 
     const initAuth = async () => {
       // 1. If Supabase configured, attempt getting active Supabase session
@@ -68,23 +66,6 @@ export const AuthProvider = ({ children }) => {
         }
       }
 
-      // 2. Fallback check for active guest / demo session
-      try {
-        const storedGuest = localStorage.getItem(GUEST_STORAGE_KEY);
-        if (storedGuest && isMounted) {
-          const parsed = JSON.parse(storedGuest);
-          if (parsed?.user) {
-            setUser(parsed.user);
-            setProfile(parsed.profile || null);
-            setSession({ user: parsed.user, access_token: 'guest-token' });
-            setLoading(false);
-            return;
-          }
-        }
-      } catch (e) {
-        console.warn('Failed parsing guest session:', e);
-      }
-
       if (isMounted) {
         setLoading(false);
       }
@@ -99,29 +80,13 @@ export const AuthProvider = ({ children }) => {
           if (!isMounted) return;
 
           if (newSession?.user) {
-            localStorage.removeItem(GUEST_STORAGE_KEY);
             setSession(newSession);
             setUser(newSession.user);
             await fetchProfile(newSession.user.id);
           } else {
-            // If logged out from Supabase, check if guest is saved
-            const storedGuest = localStorage.getItem(GUEST_STORAGE_KEY);
-            if (storedGuest) {
-              try {
-                const parsed = JSON.parse(storedGuest);
-                setUser(parsed.user);
-                setProfile(parsed.profile);
-                setSession({ user: parsed.user, access_token: 'guest-token' });
-              } catch {
-                setUser(null);
-                setSession(null);
-                setProfile(null);
-              }
-            } else {
-              setUser(null);
-              setSession(null);
-              setProfile(null);
-            }
+            setUser(null);
+            setSession(null);
+            setProfile(null);
           }
           setLoading(false);
         }
@@ -140,7 +105,7 @@ export const AuthProvider = ({ children }) => {
 
   const signUp = async ({ email, password, displayName }) => {
     if (!isSupabaseConfigured) {
-      throw new Error('Supabase is not configured. Please add your credentials to .env or continue as Guest.');
+      throw new Error('Supabase is not configured. Please add your credentials to .env.');
     }
     const { data, error } = await supabase.auth.signUp({
       email,
@@ -157,42 +122,17 @@ export const AuthProvider = ({ children }) => {
 
   const signIn = async ({ email, password }) => {
     if (!isSupabaseConfigured) {
-      throw new Error('Supabase is not configured. Please add your credentials to .env or continue as Guest.');
+      throw new Error('Supabase is not configured. Please add your credentials to .env.');
     }
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
     if (error) throw error;
-    localStorage.removeItem(GUEST_STORAGE_KEY);
     return data;
   };
 
-  const signInAsGuest = (displayName = 'Student Learner') => {
-    const guestUser = {
-      id: 'guest-student-session',
-      email: 'student@webcraft.local',
-      user_metadata: {
-        display_name: displayName,
-      },
-      isGuest: true,
-    };
-    const guestProfile = {
-      id: 'guest-student-session',
-      display_name: displayName,
-      avatar_url: null,
-      role: 'student',
-    };
-
-    localStorage.setItem(GUEST_STORAGE_KEY, JSON.stringify({ user: guestUser, profile: guestProfile }));
-    setUser(guestUser);
-    setProfile(guestProfile);
-    setSession({ user: guestUser, access_token: 'guest-token' });
-    return guestUser;
-  };
-
   const signOut = async () => {
-    localStorage.removeItem(GUEST_STORAGE_KEY);
     if (isSupabaseConfigured) {
       try {
         await supabase.auth.signOut();
@@ -216,23 +156,11 @@ export const AuthProvider = ({ children }) => {
       },
     });
     if (error) throw error;
-    localStorage.removeItem(GUEST_STORAGE_KEY);
     return data;
   };
 
   const updateProfile = async ({ displayName, avatarUrl }) => {
     if (!user) throw new Error('Not authenticated');
-
-    if (user.isGuest) {
-      const updated = {
-        ...profile,
-        display_name: displayName,
-        avatar_url: avatarUrl || profile?.avatar_url,
-      };
-      setProfile(updated);
-      localStorage.setItem(GUEST_STORAGE_KEY, JSON.stringify({ user, profile: updated }));
-      return updated;
-    }
 
     const updates = {
       id: user.id,
@@ -254,12 +182,6 @@ export const AuthProvider = ({ children }) => {
 
   const uploadAvatar = async (file) => {
     if (!user) throw new Error('Not authenticated');
-    if (user.isGuest) {
-      // Local preview URL for guest
-      const url = URL.createObjectURL(file);
-      await updateProfile({ displayName: profile?.display_name || 'Guest', avatarUrl: url });
-      return url;
-    }
 
     const fileExt = file.name.split('.').pop();
     const filePath = `${user.id}/${Date.now()}.${fileExt}`;
@@ -288,7 +210,6 @@ export const AuthProvider = ({ children }) => {
     signIn,
     signOut,
     signInWithOAuth,
-    signInAsGuest,
     updateProfile,
     uploadAvatar,
   };

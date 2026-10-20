@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { X, Mail, Lock, User, LogIn, UserPlus, AlertCircle, CheckCircle, Cloud, Sparkles } from 'lucide-react';
+import { X, Mail, Lock, User, LogIn, UserPlus, AlertCircle, CheckCircle, Cloud } from 'lucide-react';
 
 export const AuthModal = ({ isOpen, onClose }) => {
-  const { signIn, signUp, signInWithOAuth, signInAsGuest, isConfigured } = useAuth();
+  const { signIn, signUp, signInWithOAuth, isConfigured } = useAuth();
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -217,18 +217,6 @@ export const AuthModal = ({ isOpen, onClose }) => {
                 Sign In
               </>
             )}
-          </button>
-
-          <button
-            type="button"
-            onClick={() => {
-              signInAsGuest();
-              onClose();
-            }}
-            className="w-full py-2 px-3 rounded-lg border border-dashed border-blue-400 dark:border-blue-700 bg-blue-50/50 dark:bg-blue-950/20 text-blue-600 dark:text-blue-400 hover:bg-blue-100/50 dark:hover:bg-blue-900/30 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors"
-          >
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Instant Guest Student Access</span>
           </button>
 
           {/* Social OAuth */}
